@@ -2,7 +2,7 @@
 # Artpop
 A Practice Tool For Artists
 
-# What is it for?
+# How to Use It
 It's a simple standalone application for your desktop that lets you define practice sessions 
 for drawing from reference pictures.  
 1. Point the tool to a directory of reference pictures.
