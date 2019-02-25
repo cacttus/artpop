@@ -8,3 +8,7 @@ for drawing from reference pictures with time limits.
 
 # How to compile?
 Compile with Visual Studio 2017.  The NuGet package is already in the repository.
+
+# What's it look like?
+Artpop Uses Winforms with Metro Modern UI.
+![alt text](https://github.com/metalmario971/artpop/blob/master/Rsc/Artpop_Screenshot.png)
