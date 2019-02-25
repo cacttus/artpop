@@ -1,3 +1,4 @@
+![alt text](https://github.com/metalmario971/artpop/blob/master/ArtPopLogo512.png)
 # Artpop
 A Practice Tool For Artists
 
