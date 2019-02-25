@@ -4,7 +4,13 @@ A Practice Tool For Artists
 
 # What is it for?
 It's a simple standalone application for your desktop that lets you define practice sessions 
-for drawing from reference pictures with time limits.  
+for drawing from reference pictures.  
+1. Point the tool to a directory of reference pictures.
+2. Create a Session to draw with.
+3. Create exercises in the session
+4. Run the session every day, or every other day.
+
+See your abilities improve as you keep it up!
 
 # How to compile?
 Compile with Visual Studio 2017.  The NuGet package is already in the repository.
