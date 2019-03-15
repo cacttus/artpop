@@ -63,10 +63,15 @@ namespace ArtPop
         {
             SaveData();
             MarkChanged(false);
+            DialogResult = DialogResult.OK;
         }
         private void _btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+            //User has't previously clicked "Apply"
+            if(DialogResult!= DialogResult.OK)
+            {
+                DialogResult = DialogResult.Cancel;
+            }
         }
 
         private void ExerciseEditorForm_Load(object sender, EventArgs e)
@@ -77,8 +82,8 @@ namespace ArtPop
                 int d = _btnApply.Location.X + _btnApply.Width / 2;
                 int pad = (int)(_btnApply.Width * 0.3 / 2);
 
-                _btnOk.Location = new Point(d - _btnOk.Width - pad);
-                _btnCancel.Location = new Point(d + pad);
+                _btnOk.Location = new Point(d - _btnOk.Width - pad, _btnOk.Location.Y);
+                _btnCancel.Location = new Point(d + pad, _btnCancel.Location.Y);
             }
         }
         public int DtpToMillis()

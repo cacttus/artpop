@@ -34,8 +34,8 @@ namespace ArtPop
     }
     public static class Globals
     {
-        public static string SettingsFileVersion = "0.0.1";
-        public static string ProgramVersion = "0.0.1";
+        public static string SettingsFileVersion = "0.0.2";
+        public static string ProgramVersion = "0.0.2";
         public static string ProgramName ="ARTPOP";
         public static string ProgramDescriptionShort = "Practice tool";
         public static int Id_Gen = 0;
@@ -44,13 +44,14 @@ namespace ArtPop
         {
             MainForm = mf;
         }
-        public static void SetExerciseTimer(System.Windows.Forms.Label label)
+        public static ExerciseTimer SetExerciseTimer(System.Windows.Forms.Label label)
         {
             //Swaps a winforms label with an exercisetimer class.
             ExerciseTimer et = new ExerciseTimer();
             Globals.SwapControl(label, et);
             et.Font = label.Font;
             et.ForeColor = label.ForeColor;
+            return et;
         }
         public static void LogError(string st)
         {

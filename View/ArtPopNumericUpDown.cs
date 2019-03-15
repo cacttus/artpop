@@ -17,15 +17,19 @@ namespace ArtPop
 
     public partial class ArtPopNumericUpDown : MetroFramework.Controls.MetroUserControl
     {
+        static int boobs = 1;
+
+        int my_boob = 0;
         public ArtPopNumericUpDown()
         {
             InitializeComponent();
+            my_boob = boobs++;
         }
         public DataType DataType { get; set; } = DataType.Double;
         public Action ValueChanged { get; set; } = null;
         public double Min { get; set; } = 0;
         public double Max { get; set; } = 100;
-        public double Value
+        public double Value2
         {
             get
             {
@@ -36,6 +40,7 @@ namespace ArtPop
             set
             {
                 _txtValue.Text = value.ToString();
+                _txtValue.Refresh();
             }
         }
 
@@ -46,13 +51,14 @@ namespace ArtPop
 
         private void _btnUp_Click(object sender, EventArgs e)
         {
-            Invalidate();
-            Refresh();
+           // Invalidate();
+          //  Refresh();
             double n = 0;
             if (Double.TryParse(_txtValue.Text, out n))
             {
                 n = CheckRange(n + 1);
-                _txtValue.Text = n.ToString();
+                Value2 = n;
+                //_txtValue.Text = n.ToString();
             }
 
         }
@@ -64,13 +70,14 @@ namespace ArtPop
         }
         private void _btnDown_Click(object sender, EventArgs e)
         {
-            Invalidate();
-            Refresh();
+          //  Invalidate();
+           // Refresh();
             double n = 0;
             if (double.TryParse(_txtValue.Text, out n))
             {
                 n = CheckRange(n - 1);
-                _txtValue.Text = n.ToString();
+                Value2 = n;
+                //_txtValue.Text = n.ToString();
             }
         }
         private void _txtValue_Click(object sender, EventArgs e)

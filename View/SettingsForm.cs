@@ -36,6 +36,9 @@ namespace ArtPop
         private static string ShowDetailsInFullscreenModeKey = "show_details_in_fullscreen_mode";
         private static string RepeatCardsKey = "repeat_cards_key";
         private static string ExcludedFilesKey = "excluded_files_key";
+        private static string FavoritedFilesKey = "FavoritedFilesKey";
+        private static string ShowPieKey = "ShowPieKey";
+        private static string ShowPieOpacityKey = "ShowPieOpacityKey";
 
         public List<Session> Sessions { get; set; } = new List<Session>();
         public List<Exercise> Exercises { get; set; } = new List<Exercise>();
@@ -45,10 +48,23 @@ namespace ArtPop
         public bool IsFullscreenEnabled { get {return _chkFullscreenModeEnabled.Checked; } }
         public bool ShowFullscreenDetails  { get { return _chkShowDetailsInFullscreenMode.Checked; }}
         public bool RepeatCards { get { return _chkRepeatCards.Checked; }}
+        public bool ShowPie { get { return _chkShowPie.Checked; } }
+        public int ShowPieOpacity { get { return (int)((float)_sbPieOpacity.Value * 0.01f * 255); } }//In 32b RGB
 
         public SettingsForm()
         {
             InitializeComponent();
+
+            _nudMinWidth = MakeNud(800, _pnlMinWidth);
+            _nudMinHeight = MakeNud(800, _pnlMinHeight);
+            _nudMaxWidth = MakeNud(99999, _pnlMaxWidth);
+            _nudMaxHeight = MakeNud(99999, _pnlMaxHeight);
+            SelectFileType("PNG");
+            SelectFileType("JPG");
+            _txtSearchPath.Text = System.Environment.CurrentDirectory;
+            CreateDefaultSession();
+            _sbPieOpacity.Value = 60;
+
         }
 
         public void ExcludeFile(string file)
@@ -56,14 +72,24 @@ namespace ArtPop
             if (!FileCache.ExcludedFiles.Contains(file))
             {
                 FileCache.ExcludedFiles.Add(file);
-
                 //Try to remove it
                 FileCache.Files.Remove(file);
-
                 SaveData();
             }
         }
-
+        public void ToggleFavoriteFile(string file)
+        {
+            file = file.Trim();
+            if (!FileCache.FavoritedFiles.Contains(file))
+            {
+                FileCache.FavoritedFiles.Add(file);
+            }
+            else
+            {
+                FileCache.FavoritedFiles.Remove(file);
+            }
+            SaveData();
+        }
         public void RefreshFileCache()
         {
             //Heinous operation.
@@ -77,10 +103,10 @@ namespace ArtPop
             else
             {
                 ImageSizeFilter filter = new ImageSizeFilter();
-                filter.MinWidth = (int)_nudMinWidth.Value;
-                filter.MaxWidth = (int)_nudMaxWidth.Value;
-                filter.MinHeight = (int)_nudMinHeight.Value;
-                filter.MaxHeight = (int)_nudMaxHeight.Value;
+                filter.MinWidth = (int)_nudMinWidth.Value2;
+                filter.MaxWidth = (int)_nudMaxWidth.Value2;
+                filter.MinHeight = (int)_nudMinHeight.Value2;
+                filter.MaxHeight = (int)_nudMaxHeight.Value2;
                 FileCache.Search(_txtSearchPath.Text, filter, () =>
                 {
                     UpdateFileCacheInfo();
@@ -124,16 +150,8 @@ namespace ArtPop
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             //Defaults
-            MakeNud(800, ref _nudMinWidth, _pnlMinWidth);
-            MakeNud(800, ref _nudMinHeight, _pnlMinHeight);
-            MakeNud(99999, ref _nudMaxWidth, _pnlMaxWidth);
-            MakeNud(99999, ref _nudMaxHeight, _pnlMaxHeight);
-            SelectFileType("PNG");
-            SelectFileType("JPG");
-            _txtSearchPath.Text = System.Environment.CurrentDirectory;
-            CreateDefaultSession();
-
             LoadData();
+
         }
         private void _btnCancel_Click(object sender, EventArgs e)
         {
@@ -242,33 +260,44 @@ namespace ArtPop
             _lblSearched.Text = FileCache.Searched.ToString();
             _txtExcludedFiles.Text = String.Join("|", FileCache.ExcludedFiles);
             _lblExcludedFiles.Text = FileCache.ExcludedFiles.Count.ToString();
+            _txtFavoritedFiles.Text = String.Join("|", FileCache.FavoritedFiles);
+            _lblFavoritedFiles.Text = FileCache.FavoritedFiles.Count.ToString();
+
         }
         private void MarkChanged(bool changed = true)
         {
+            _sbPieOpacity.Enabled = _chkShowPie.Enabled;
+
             _bChanged = changed;
             _btnApply.Enabled = changed;
         }
-        private void MakeNud(int def, ref ArtPopNumericUpDown nud, Control swap)
+        private ArtPopNumericUpDown MakeNud(int def, Control swap)
         {
-            nud = new ArtPopNumericUpDown();
+            ArtPopNumericUpDown nud = new ArtPopNumericUpDown();
+
             nud.Min = 1;
             nud.Max = 32767;
-            nud.Value = 600;
+            nud.Value2 = 600;
             nud.DataType = DataType.Int32;
-            nud.ValueChanged = () =>
-            {
-                if (_nudMaxHeight.Value < _nudMinHeight.Value)
-                {
-                    _nudMaxHeight.Value = _nudMinHeight.Value;
-                }
-                if (_nudMaxWidth.Value < _nudMinWidth.Value)
-                {
-                    _nudMaxWidth.Value = _nudMinWidth.Value;
-                }
-                MarkChanged();
-            };
+            nud.ValueChanged = ValidateImageNuds;
+
             Globals.SwapControl(swap, nud);
+
+            return nud;
         }
+        private void ValidateImageNuds()
+        {
+            //if (_nudMaxHeight.Value2 < _nudMinHeight.Value2)
+            //{
+            //    _nudMaxHeight.Value2 = _nudMinHeight.Value2;
+            //}
+            //if (_nudMaxWidth.Value2 < _nudMinWidth.Value2)
+            //{
+            //    _nudMaxWidth.Value2 = _nudMinWidth.Value2;
+            //}
+            MarkChanged();
+        }
+
         private string GetCleanToken(string st)
         {
             st = st.Trim();
@@ -351,19 +380,19 @@ namespace ArtPop
 
                         if (KeyComp(key, SearchMinWidthKey, ref encountered_tokens))
                         {
-                            _nudMinWidth.Value = Globals.ParseInt(val, 800);
+                            _nudMinWidth.Value2 = Globals.ParseInt(val, 800);
                         }
                         else if (KeyComp(key, SearchMinHeightKey, ref encountered_tokens))
                         {
-                            _nudMinHeight.Value = Globals.ParseInt(val, 600);
+                            _nudMinHeight.Value2 = Globals.ParseInt(val, 600);
                         }
                         else if (KeyComp(key, SearchMaxWidthKey, ref encountered_tokens))
                         {
-                            _nudMaxWidth.Value = Globals.ParseInt(val, 9999);
+                            _nudMaxWidth.Value2 = Globals.ParseInt(val, 9999);
                         }
                         else if (KeyComp(key, SearchMaxHeightKey, ref encountered_tokens))
                         {
-                            _nudMaxHeight.Value = Globals.ParseInt(val, 9999);
+                            _nudMaxHeight.Value2 = Globals.ParseInt(val, 9999);
                         }
                         else if (KeyComp(key, LogDataKey, ref encountered_tokens))
                         {
@@ -438,6 +467,27 @@ namespace ArtPop
                             }
                             UpdateFileCacheInfo();
                         }
+                        else if (KeyComp(key, FavoritedFilesKey, ref encountered_tokens))
+                        {
+                            string[] vals = val.Split('|');
+                            FileCache.FavoritedFiles.Clear();
+
+                            foreach (string v in vals)
+                            {
+                                string v2 = v.Trim();
+                                FileCache.FavoritedFiles.Add(v);
+                            }
+                            UpdateFileCacheInfo();
+                        }
+                        else if (KeyComp(key, ShowPieKey, ref encountered_tokens))
+                        {
+                            _chkShowPie.Checked = Globals.ParseBool(val, false);
+                        }
+                        else if (KeyComp(key, ShowPieOpacityKey, ref encountered_tokens))
+                        {
+                            _sbPieOpacity.Value = Globals.ParseInt(val, _sbPieOpacity.Maximum);
+                        }
+
                         else
                         {
                             errors.Add("Unrecognized Settings key '" + key + "'");
@@ -506,10 +556,10 @@ namespace ArtPop
         private StringBuilder GetSaveDataString()
         {
             StringBuilder data = new StringBuilder();
-            WriteValue(ref data, SearchMinWidthKey, _nudMinWidth.Value.ToString());
-            WriteValue(ref data, SearchMaxWidthKey, _nudMaxWidth.Value.ToString());
-            WriteValue(ref data, SearchMinHeightKey, _nudMinHeight.Value.ToString());
-            WriteValue(ref data, SearchMaxHeightKey, _nudMaxHeight.Value.ToString());
+            WriteValue(ref data, SearchMinWidthKey, _nudMinWidth.Value2.ToString());
+            WriteValue(ref data, SearchMaxWidthKey, _nudMaxWidth.Value2.ToString());
+            WriteValue(ref data, SearchMinHeightKey, _nudMinHeight.Value2.ToString());
+            WriteValue(ref data, SearchMaxHeightKey, _nudMaxHeight.Value2.ToString());
 
             WriteValue(ref data, LogDataKey, _txtLog.Text);
 
@@ -539,16 +589,34 @@ namespace ArtPop
             WriteValue(ref data, SearchResultsKey, search_results);
             string excluded_files = String.Join("|", FileCache.ExcludedFiles);
             WriteValue(ref data, ExcludedFilesKey, excluded_files);
+            string favorited_files = String.Join("|", FileCache.FavoritedFiles);
+            WriteValue(ref data, FavoritedFilesKey, favorited_files);
+
 
             WriteValue(ref data, FullscreenModeEnabledKey, _chkFullscreenModeEnabled.Checked ? "True" : "False");
             WriteValue(ref data, ShowDetailsInFullscreenModeKey, _chkShowDetailsInFullscreenMode.Checked ? "True" : "False");
             WriteValue(ref data, RepeatCardsKey, _chkRepeatCards.Checked ? "True" : "False");
+            WriteValue(ref data, ShowPieKey, _chkShowPie.Checked ? "True" : "False");
+            WriteValue(ref data, ShowPieOpacityKey, _sbPieOpacity.Value.ToString());
 
             return data;
         }
 
+
         #endregion
 
+        public void SetSearchStatus(string stat)
+        {
+            _lblSearched.Text = stat;
+        }
+        private void _txtExcludedFiles_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

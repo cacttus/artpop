@@ -55,8 +55,8 @@ namespace ArtPop
                 {
                     if(Globals.MainForm.Sequencer.PlayState == PlayState.Playing)
                     {
-                        int elapsed = Environment.TickCount - Globals.MainForm.Sequencer.StartTimeMillis;
-                        int duration = Globals.MainForm.Sequencer.EndTimeMillis - Globals.MainForm.Sequencer.StartTimeMillis;
+                        int elapsed = Environment.TickCount - Globals.MainForm.Sequencer.ResumeTimeMillis;
+                        int duration = Globals.MainForm.Sequencer.EndTimeMillis - Globals.MainForm.Sequencer.ResumeTimeMillis;
                         int remaining = duration - elapsed;
 
                         TimeSpan ts = TimeSpan.FromMilliseconds(remaining);
@@ -83,9 +83,15 @@ namespace ArtPop
                         _lblClocko.ForeColor = Color.FromArgb(100,100,100);
 
                     }
+                    else if(Globals.MainForm.Sequencer.PlayState == PlayState.Stopped)
+                    {
+                        _lblClocko.Text = "0:00";
+                        _lblClocko.ForeColor = Color.FromArgb(60,60,60);
+                    }
                     else
                     {
-                        _lblClocko.ForeColor = Color.FromArgb(60,60,60);
+                        //Paused
+                        _lblClocko.ForeColor = Color.FromArgb(60, 60, 60);
                     }
 
                 }

@@ -103,6 +103,26 @@ namespace ArtPop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap appbar_chevron_down {
+            get {
+                object obj = ResourceManager.GetObject("appbar_chevron_down", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap appbar_chevron_up {
+            get {
+                object obj = ResourceManager.GetObject("appbar_chevron_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap appbar_close {
             get {
                 object obj = ResourceManager.GetObject("appbar_close", resourceCulture);
@@ -276,6 +296,26 @@ namespace ArtPop.Properties {
         internal static System.Drawing.Bitmap mario_run_gif {
             get {
                 object obj = ResourceManager.GetObject("mario_run_gif", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap star_hollow {
+            get {
+                object obj = ResourceManager.GetObject("star_hollow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap star_solid {
+            get {
+                object obj = ResourceManager.GetObject("star_solid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

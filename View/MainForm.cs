@@ -41,11 +41,20 @@ namespace ArtPop
             WalkingGuyTimer.Tick += (x, y) =>
             {
                 int xspd = 5;
-                _pbWalkingGuy.Location = new Point(_pbWalkingGuy.Location.X + xspd,
-                   Height + WalkingGuyInitialYFromBase);
+                _pbWalkingGuy.Location = new Point(_pbWalkingGuy.Location.X + xspd, Height + WalkingGuyInitialYFromBase);
                 if (_pbWalkingGuy.Location.X > Width)
                 {
                     _pbWalkingGuy.Location = new Point(-_pbWalkingGuy.Width, Height + WalkingGuyInitialYFromBase);
+                }
+
+                if (PictureViewerForm != null)
+                {
+                    if (Sequencer != null)
+                    {
+                        float f = (float)(Sequencer.ElapsedMillis) / (float)(Sequencer.TotalExerciseTimeMillis);
+
+                        PictureViewerForm.RepaintTimerPie(f);
+                    }
                 }
             };
             WalkingGuyTimer.Stop();
@@ -129,7 +138,14 @@ namespace ArtPop
         #endregion
 
         #region Public:Methods
-
+        public void SetSearchStatus(string stat)
+        {
+            BeginInvoke((Action)(() =>
+            {
+                _lblStatus.Text = stat;
+                this.SettingsForm?.SetSearchStatus(stat);
+            }));
+        }
         public void SetStatus(string stat)
         {
             BeginInvoke((Action)(() =>
@@ -156,23 +172,7 @@ namespace ArtPop
 
         #region Private:Methods
 
-        private void UpdatePlaylist()
-        {
-            _lsvPlaylist.Items.Clear();
-            foreach (string card in Sequencer.Cards)
-            {
-                _lsvPlaylist.Items.Add(card);
-            }
-        }
-        private void CycleImage()
-        {
-            if (PictureViewerForm == null)
-            {
-                PictureViewerForm = new PictureViewerForm();
-            }
-            PictureViewerForm.SetImage(Sequencer.CurrentCard);
-            PictureViewerForm.InstructionText = Sequencer.CurrentExercise.Instruction;
-        }
+
         private Session GetSelectedSession()
         {
             if (_cboSessions.SelectedIndex < 0)
@@ -193,6 +193,10 @@ namespace ArtPop
         }
         public void PlayPauseAction()
         {
+            if (this.SettingsForm.FileCache.Files.Count == 0)
+            {
+                MessageBox.Show("Could not start session, no images were found.  Create a list of images by going to Settings and clicking 'Search'", "No images found.", MessageBoxButtons.OK);
+            }
             if (GetSelectedSession() == null)
             {
                 MessageBox.Show("Select a session in the dropdown box to start it.  " +
@@ -200,19 +204,36 @@ namespace ArtPop
             }
             else
             {
-                if (Sequencer == null)
+                if (Sequencer == null || Sequencer.PlayState == PlayState.Stopped)
                 {
-                    if (PictureViewerForm == null )
+                    if (PictureViewerForm == null)
                     {
                         PictureViewerForm = new PictureViewerForm();
                         PictureViewerForm.Show();
                     }
 
-                    //We are initially starting a play.
+                    //We are initially starting a play.  if stopped reset sequencer to load fresh data.
                     Sequencer = new Sequencer(
                         GetSelectedSession(),
-                        UpdatePlaylist,
-                        CycleImage
+                        () =>
+                        {
+                            //UpdatePlaylist
+                            _lsvPlaylist.Items.Clear();
+                            foreach (string card in Sequencer.Cards)
+                            {
+                                _lsvPlaylist.Items.Add(card);
+                            }
+                        },
+                        () =>
+                        {
+                            //CycleImage
+                            if (PictureViewerForm == null)
+                            {
+                                PictureViewerForm = new PictureViewerForm();
+                            }
+                            PictureViewerForm.SetImage(Sequencer.CurrentCard);
+                            PictureViewerForm.InstructionText = Sequencer.CurrentExercise.Instruction;
+                        }
                     );
                 }
 
@@ -248,10 +269,12 @@ namespace ArtPop
         public void PictureViewerWidnowClosed()
         {
             PictureViewerForm = null;
+            PauseTimer();
         }
         private void StopTimerAction()
         {
             Sequencer.Stop();
+
 
             _cboSessions.Enabled = _btnSession.Enabled = _btnSettings.Enabled = true;
             _btnPlay.BackgroundImage = new Bitmap(Properties.Resources.appbar_timer_play);
@@ -280,7 +303,7 @@ namespace ArtPop
             WalkingGuyTimer.Start();
             _pbWalkingGuy.Visible = true;
 
-            if (PictureViewerForm == null )
+            if (PictureViewerForm == null)
             {
                 PictureViewerForm = new PictureViewerForm();
             }
@@ -291,10 +314,13 @@ namespace ArtPop
             Shortcuts = new Dictionary<Keys, Action>();
             Shortcuts.Add(Keys.F5, PlayPauseAction);
             Shortcuts.Add(Keys.Escape, ToggleFullscreenAction);
+            Shortcuts.Add(Keys.F11, ToggleFullscreenAction);
             Shortcuts.Add(Keys.Space, PlayPauseAction);
             Shortcuts.Add(Keys.Right, () => { Globals.MainForm.Sequencer.SkipToNextCard(); });
             Shortcuts.Add(Keys.Left, () => { Globals.MainForm.Sequencer.SkipToPrevCard(); });
-            Shortcuts.Add(Keys.E, () => { Globals.MainForm.Sequencer.ExcludeCurrentCard(); });
+            Shortcuts.Add(Keys.E, () => { Globals.MainForm.Sequencer.ExcludeCurrentCard(); PictureViewerForm?.ShowLocalMessage("Trashed."); });
+            Shortcuts.Add(Keys.F, () => {
+                Globals.MainForm.Sequencer.ToggleFavoriteCurrentCard(); PictureViewerForm?.UpdateFavImage(); });
 
         }
 

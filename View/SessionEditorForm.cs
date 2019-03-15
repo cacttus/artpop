@@ -360,6 +360,8 @@ namespace ArtPop
 
                     _lsvSessionExercises.SelectedIndices.Clear();
                     _lsvSessionExercises.SelectedIndices.Add(sel - 1);
+
+                    SaveSelectedExercisesToSession();
                 }
             }
             UpdateSessionStats();
@@ -377,6 +379,8 @@ namespace ArtPop
 
                     _lsvSessionExercises.SelectedIndices.Clear();
                     _lsvSessionExercises.SelectedIndices.Add(sel + 1);
+
+                    SaveSelectedExercisesToSession();
                 }
             }
             UpdateSessionStats();
@@ -436,10 +440,13 @@ namespace ArtPop
         private void _btnAddConfiguredExercise_Click(object sender, EventArgs e)
         {
             ExerciseEditorForm ef = new ExerciseEditorForm(AddEditMode.Add, null);
-            ef.ShowDialog();
-            Globals.MainForm.SettingsForm.Exercises.Add(ef.Exercise);
+            DialogResult dr = ef.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                Globals.MainForm.SettingsForm.Exercises.Add(ef.Exercise);
+                RefreshConfiguredExercises();
+            }
 
-            RefreshConfiguredExercises();
         }
 
         private void _btnEditConfiguredExercise_Click(object sender, EventArgs e)

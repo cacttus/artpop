@@ -22,9 +22,11 @@ namespace ArtPop
         private int DeckSize = 3;
         private int CardIndex = 0;
 
-        public int StartTimeMillis { get; private set; } = 0;
-        public int EndTimeMillis { get; private set; } = 0;
-        public Timer ExerciseTimer { get; private set; } = null;
+
+        public int TotalExerciseTimeMillis { get; private set; } = 0;//Absolute beginning of timer
+        public int ResumeTimeMillis { get; private set; } = 0;//the beginning of the last tim we paused, or the BeginTimeMillis if we never paused
+        public int EndTimeMillis { get; private set; } = 0;//end of timer.
+        public Timer ExerciseTimer { get; private set; } = null;//When we show the next picture
         public Exercise CurrentExercise { get; private set; } = null;
 
         public PlayState PlayState { get; private set; } = PlayState.Stopped;
@@ -42,6 +44,16 @@ namespace ArtPop
         private int CurrentExerciseIndex = 0;
 
         private Random Random = new Random();
+
+        private int ElapsedSinceRunMillis = 0;//Time elapsed since we last clicked "play"
+        public float ElapsedMillis
+        {
+            get
+            {
+                float sincePause = Environment.TickCount - ResumeTimeMillis;
+                return sincePause + ElapsedSinceRunMillis;
+            }
+        }
 
         #region Public: Methods
         public Sequencer(Session session, Action onShuffle, Action onExerciseStart)
@@ -72,29 +84,38 @@ namespace ArtPop
                 RunExercise(CurrentExerciseIndex++);
             };
 
-
             RunExercise(0);
         }
         private void UpdateDurationRemaining()
         {
-            int duration = EndTimeMillis - StartTimeMillis;
-            int elapsed = Environment.TickCount - StartTimeMillis;
+            int duration = EndTimeMillis - ResumeTimeMillis;
+            int elapsed = Environment.TickCount - ResumeTimeMillis;
             DurationRemaining = duration - elapsed;
         }
         public void Resume()
         {
-            PlayState = PlayState.Playing;
-            ExerciseTimer.Start();
+            if (PlayState == PlayState.Paused)
+            {
+                PlayState = PlayState.Playing;
+                ExerciseTimer.Start();
 
-            StartTimeMillis = Environment.TickCount;
-            EndTimeMillis = StartTimeMillis + DurationRemaining;
+                ResumeTimeMillis = Environment.TickCount;
+                EndTimeMillis = ResumeTimeMillis + DurationRemaining;
 
-            OnExerciseStart?.Invoke();
+                OnExerciseStart?.Invoke();
+            }
+            else
+            {
+                Globals.LogError("Error - play state was not paused before Resume() called.");
+            }
         }
         public void Pause()
         {
+            ElapsedSinceRunMillis += Environment.TickCount - ResumeTimeMillis;
+
             PlayState = PlayState.Paused;
-            ExerciseTimer.Stop();
+
+            ExerciseTimer?.Stop();
             UpdateDurationRemaining();
         }
         public void Stop()
@@ -105,42 +126,55 @@ namespace ArtPop
         }
         public void Shuffle()
         {
-            //Add our current hand into the played pile and add the unplayed back.
-            for (int i = 0; i < CardIndex; ++i)
+            try
             {
-                if (Cards.Count > 0)
+
+                //Add our current hand into the played pile and add the unplayed back.
+                for (int i = 0; i < CardIndex; ++i)
                 {
-                    Played.Add(Cards[0]);
-                    Cards.RemoveAt(0);
-                }
-            }
-
-            CardIndex = 0;
-
-            foreach (string card in Cards)
-            {
-                Unplayed.Add(card);
-            }
-
-            Cards.Clear();
-
-            //get a new hand from the unplayed
-            for (int i = 0; i < DeckSize; ++i)
-            {
-                //Cards.Add()
-                int index = Random.Next() % Unplayed.Count;
-                string card = Unplayed[index];
-
-                if (Globals.MainForm.SettingsForm.RepeatCards == false)
-                {
-                    //remove
-                    Unplayed.RemoveAt(index);
+                    if (Cards.Count > 0)
+                    {
+                        Played.Add(Cards[0]);
+                        Cards.RemoveAt(0);
+                    }
                 }
 
-                Cards.Add(card);
-            }
+                CardIndex = 0;
 
-            OnShuffle?.Invoke();
+                foreach (string card in Cards)
+                {
+                    Unplayed.Add(card);
+                }
+
+                Cards.Clear();
+
+                //get a new hand from the unplayed
+                for (int i = 0; i < DeckSize; ++i)
+                {
+                    //Cards.Add()
+                    if (Unplayed.Count == 0)
+                    {
+                        //No Cards Left
+                        break;
+                    }
+                    int index = Random.Next() % Unplayed.Count;
+                    string card = Unplayed[index];
+
+                    if (Globals.MainForm.SettingsForm.RepeatCards == false)
+                    {
+                        //remove
+                        Unplayed.RemoveAt(index);
+                    }
+
+                    Cards.Add(card);
+                }
+
+                OnShuffle?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                Globals.LogError(ex.ToString());
+            }
         }
         #endregion
 
@@ -154,9 +188,24 @@ namespace ArtPop
             PrevCard();
             OnExerciseStart?.Invoke();
         }
+        public bool IsCurrentCardFavorited()
+        {
+            if (Globals.MainForm.SettingsForm.FileCache != null)
+            {
+                return Globals.MainForm.SettingsForm.FileCache.FavoritedFiles.Contains(CurrentCard);
+            }
+            return false;
+        }
+        public void ToggleFavoriteCurrentCard()
+        {
+            if (CurrentCard != "" && CurrentCard != null)
+            {
+                Globals.MainForm.SettingsForm.ToggleFavoriteFile(CurrentCard);
+            }
+        }
         public void ExcludeCurrentCard()
         {
-            if(CurrentCard!="" && CurrentCard != null)
+            if (CurrentCard != "" && CurrentCard != null)
             {
                 Globals.MainForm.SettingsForm.ExcludeFile(CurrentCard);
                 if (CardIndex < 0)
@@ -179,23 +228,31 @@ namespace ArtPop
         #region Private:Methods
         private void RunExercise(int index)
         {
-            int exid = Session.Exercises[CurrentExerciseIndex];
-            CurrentExercise = Globals.MainForm.SettingsForm.Exercises.Where(x => x.Id == exid).FirstOrDefault();
+            if (CurrentExerciseIndex >= Session.Exercises.Count)
+            {
+                //We completed the session.
+                System.Windows.Forms.MessageBox.Show("Session Complete. Press ESC or F11 to exit picture viewer.", "Session Complete", MessageBoxButtons.OK);
+            }
+            else
+            {
+                int exid = Session.Exercises[CurrentExerciseIndex];
+                CurrentExercise = Globals.MainForm.SettingsForm.Exercises.Where(x => x.Id == exid).FirstOrDefault();
 
+                //invoke a first tick to start the current exercise.
+                NextCard();
+                OnExerciseStart?.Invoke();
 
-            //invoke a first tick to start the current exercise.
-            NextCard();
-            OnExerciseStart?.Invoke();
+                //Start the timer for subsequent Exercises.
+                ExerciseTimer.Stop();
+                TotalExerciseTimeMillis = (int)CurrentExercise.Duration.TotalMilliseconds;
+                ExerciseTimer.Interval = TotalExerciseTimeMillis;
 
-            //Start the timer for subsequent Exercises.
-            ExerciseTimer.Stop();
-            ExerciseTimer.Interval = (int)CurrentExercise.Duration.TotalMilliseconds;
+                ResumeTimeMillis = Environment.TickCount;
+                EndTimeMillis = ResumeTimeMillis + ExerciseTimer.Interval;
+                UpdateDurationRemaining();
 
-            StartTimeMillis = Environment.TickCount;
-            EndTimeMillis = StartTimeMillis + ExerciseTimer.Interval;
-            UpdateDurationRemaining();
-
-            ExerciseTimer.Start();
+                ExerciseTimer.Start();
+            }
 
         }
         private void ResetState()
@@ -207,9 +264,11 @@ namespace ArtPop
             Cards.Clear();
             CardIndex = 0;
             CurrentCard = null;
-            StartTimeMillis = 0;
+            ResumeTimeMillis = 0;
             EndTimeMillis = 0;
+            TotalExerciseTimeMillis = 0;
             CurrentExerciseIndex = 0;
+            ElapsedSinceRunMillis = 0;
         }
 
         private void PrevCard()

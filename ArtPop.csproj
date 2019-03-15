@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Sequencer.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="View\ExerciseEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +166,8 @@
     <Content Include="ArtPopLogo256.ico" />
     <Content Include="ArtPopLogo512.ico" />
     <Content Include="Changelog.txt" />
+    <None Include="rsc\star_solid.png" />
+    <None Include="rsc\star_hollow.png" />
     <None Include="rsc\appbar.save.png" />
     <None Include="rsc\appbar.timer.stop.png" />
     <None Include="rsc\appbar.window.restore.png" />
@@ -179,6 +182,8 @@
     <None Include="rsc\appbar.cell.up.png" />
     <None Include="rsc\appbar.page.add.png" />
     <None Include="rsc\appbar.page.delete.png" />
+    <None Include="rsc\appbar.chevron.down.png" />
+    <None Include="rsc\appbar.chevron.up.png" />
     <Content Include="rsc\appbar.question.png" />
     <None Include="rsc\appbar.shuffle.png" />
     <None Include="rsc\mario_run_gif.gif" />

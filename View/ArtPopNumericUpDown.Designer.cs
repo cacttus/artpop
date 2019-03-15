@@ -41,7 +41,7 @@
             // 
             // 
             this._txtValue.CustomButton.Image = null;
-            this._txtValue.CustomButton.Location = new System.Drawing.Point(35, 1);
+            this._txtValue.CustomButton.Location = new System.Drawing.Point(90, 1);
             this._txtValue.CustomButton.Name = "";
             this._txtValue.CustomButton.Size = new System.Drawing.Size(21, 21);
             this._txtValue.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -60,7 +60,7 @@
             this._txtValue.SelectionLength = 0;
             this._txtValue.SelectionStart = 0;
             this._txtValue.ShortcutsEnabled = true;
-            this._txtValue.Size = new System.Drawing.Size(112, 23);
+            this._txtValue.Size = new System.Drawing.Size(114, 23);
             this._txtValue.TabIndex = 0;
             this._txtValue.Text = "metroTextBox1";
             this._txtValue.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -74,11 +74,13 @@
             // _btnUp
             // 
             this._btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._btnUp.BackColor = System.Drawing.Color.Transparent;
+            this._btnUp.BackgroundImage = global::ArtPop.Properties.Resources.appbar_chevron_up;
+            this._btnUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this._btnUp.Location = new System.Drawing.Point(114, 0);
             this._btnUp.Name = "_btnUp";
             this._btnUp.Size = new System.Drawing.Size(16, 14);
             this._btnUp.TabIndex = 1;
-            this._btnUp.Text = "^";
             this._btnUp.Theme = MetroFramework.MetroThemeStyle.Dark;
             this._btnUp.UseSelectable = true;
             this._btnUp.Click += new System.EventHandler(this._btnUp_Click);
@@ -86,11 +88,13 @@
             // _btnDown
             // 
             this._btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._btnDown.BackColor = System.Drawing.Color.Transparent;
+            this._btnDown.BackgroundImage = global::ArtPop.Properties.Resources.appbar_chevron_down;
+            this._btnDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this._btnDown.Location = new System.Drawing.Point(114, 10);
             this._btnDown.Name = "_btnDown";
             this._btnDown.Size = new System.Drawing.Size(16, 14);
             this._btnDown.TabIndex = 1;
-            this._btnDown.Text = "v";
             this._btnDown.Theme = MetroFramework.MetroThemeStyle.Dark;
             this._btnDown.UseSelectable = true;
             this._btnDown.Click += new System.EventHandler(this._btnDown_Click);

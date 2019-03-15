@@ -68,6 +68,13 @@
             this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
             this._chkFullscreenModeEnabled = new MetroFramework.Controls.MetroToggle();
             this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
+            this._chkShowPie = new MetroFramework.Controls.MetroToggle();
+            this._sbPieOpacity = new MetroFramework.Controls.MetroScrollBar();
+            this.metroLabel13 = new MetroFramework.Controls.MetroLabel();
+            this._txtFavoritedFiles = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel14 = new MetroFramework.Controls.MetroLabel();
+            this._lblFavoritedFiles = new MetroFramework.Controls.MetroLabel();
             this._btnSave = new MetroFramework.Controls.MetroButton();
             this.groupBox1.SuspendLayout();
             this.metroPanel1.SuspendLayout();
@@ -157,7 +164,10 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this._lblFavoritedFiles);
             this.groupBox1.Controls.Add(this._lblExcludedFiles);
+            this.groupBox1.Controls.Add(this.metroLabel14);
+            this.groupBox1.Controls.Add(this._txtFavoritedFiles);
             this.groupBox1.Controls.Add(this.metroLabel11);
             this.groupBox1.Controls.Add(this._txtExcludedFiles);
             this.groupBox1.Controls.Add(this._txtSearchPath);
@@ -177,12 +187,13 @@
             this.groupBox1.Controls.Add(this.metroLabel4);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.DarkGray;
-            this.groupBox1.Location = new System.Drawing.Point(23, 181);
+            this.groupBox1.Location = new System.Drawing.Point(23, 209);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(377, 328);
+            this.groupBox1.Size = new System.Drawing.Size(429, 342);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // _lblExcludedFiles
             // 
@@ -213,9 +224,9 @@
             // 
             // 
             this._txtExcludedFiles.CustomButton.Image = null;
-            this._txtExcludedFiles.CustomButton.Location = new System.Drawing.Point(268, 1);
+            this._txtExcludedFiles.CustomButton.Location = new System.Drawing.Point(362, 1);
             this._txtExcludedFiles.CustomButton.Name = "";
-            this._txtExcludedFiles.CustomButton.Size = new System.Drawing.Size(83, 83);
+            this._txtExcludedFiles.CustomButton.Size = new System.Drawing.Size(41, 41);
             this._txtExcludedFiles.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this._txtExcludedFiles.CustomButton.TabIndex = 1;
             this._txtExcludedFiles.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -232,12 +243,13 @@
             this._txtExcludedFiles.SelectionLength = 0;
             this._txtExcludedFiles.SelectionStart = 0;
             this._txtExcludedFiles.ShortcutsEnabled = true;
-            this._txtExcludedFiles.Size = new System.Drawing.Size(352, 85);
+            this._txtExcludedFiles.Size = new System.Drawing.Size(404, 43);
             this._txtExcludedFiles.TabIndex = 14;
             this._txtExcludedFiles.Theme = MetroFramework.MetroThemeStyle.Dark;
             this._txtExcludedFiles.UseSelectable = true;
             this._txtExcludedFiles.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this._txtExcludedFiles.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this._txtExcludedFiles.Click += new System.EventHandler(this._txtExcludedFiles_Click);
             // 
             // _txtSearchPath
             // 
@@ -247,7 +259,7 @@
             // 
             // 
             this._txtSearchPath.CustomButton.Image = null;
-            this._txtSearchPath.CustomButton.Location = new System.Drawing.Point(314, 1);
+            this._txtSearchPath.CustomButton.Location = new System.Drawing.Point(366, 1);
             this._txtSearchPath.CustomButton.Name = "";
             this._txtSearchPath.CustomButton.Size = new System.Drawing.Size(21, 21);
             this._txtSearchPath.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -265,7 +277,7 @@
             this._txtSearchPath.SelectionLength = 0;
             this._txtSearchPath.SelectionStart = 0;
             this._txtSearchPath.ShortcutsEnabled = true;
-            this._txtSearchPath.Size = new System.Drawing.Size(336, 23);
+            this._txtSearchPath.Size = new System.Drawing.Size(388, 23);
             this._txtSearchPath.TabIndex = 12;
             this._txtSearchPath.UseSelectable = true;
             this._txtSearchPath.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -291,7 +303,7 @@
             listViewItem4,
             listViewItem5,
             listViewItem6});
-            this._lsvFileTypes.Location = new System.Drawing.Point(234, 40);
+            this._lsvFileTypes.Location = new System.Drawing.Point(286, 40);
             this._lsvFileTypes.MultiSelect = false;
             this._lsvFileTypes.Name = "_lsvFileTypes";
             this._lsvFileTypes.OwnerDraw = true;
@@ -307,7 +319,7 @@
             // 
             // _btnSearch
             // 
-            this._btnSearch.Location = new System.Drawing.Point(14, 158);
+            this._btnSearch.Location = new System.Drawing.Point(14, 147);
             this._btnSearch.Name = "_btnSearch";
             this._btnSearch.Size = new System.Drawing.Size(93, 27);
             this._btnSearch.TabIndex = 10;
@@ -332,7 +344,7 @@
             // _lblSearched
             // 
             this._lblSearched.AutoSize = true;
-            this._lblSearched.Location = new System.Drawing.Point(342, 166);
+            this._lblSearched.Location = new System.Drawing.Point(187, 166);
             this._lblSearched.Name = "_lblSearched";
             this._lblSearched.Size = new System.Drawing.Size(16, 19);
             this._lblSearched.TabIndex = 8;
@@ -343,7 +355,7 @@
             // 
             this.metroLabel6.AutoSize = true;
             this.metroLabel6.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.metroLabel6.Location = new System.Drawing.Point(239, 166);
+            this.metroLabel6.Location = new System.Drawing.Point(127, 166);
             this.metroLabel6.Name = "metroLabel6";
             this.metroLabel6.Size = new System.Drawing.Size(66, 19);
             this.metroLabel6.TabIndex = 9;
@@ -354,7 +366,7 @@
             // 
             this.metroLabel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(243, 18);
+            this.metroLabel5.Location = new System.Drawing.Point(295, 18);
             this.metroLabel5.Name = "metroLabel5";
             this.metroLabel5.Size = new System.Drawing.Size(65, 19);
             this.metroLabel5.TabIndex = 1;
@@ -374,7 +386,7 @@
             // _lblFound
             // 
             this._lblFound.AutoSize = true;
-            this._lblFound.Location = new System.Drawing.Point(197, 166);
+            this._lblFound.Location = new System.Drawing.Point(173, 147);
             this._lblFound.Name = "_lblFound";
             this._lblFound.Size = new System.Drawing.Size(16, 19);
             this._lblFound.TabIndex = 7;
@@ -397,7 +409,7 @@
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(126, 166);
+            this.metroLabel4.Location = new System.Drawing.Point(127, 147);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(49, 19);
             this.metroLabel4.TabIndex = 7;
@@ -413,16 +425,16 @@
             // 
             // 
             this._txtLog.CustomButton.Image = null;
-            this._txtLog.CustomButton.Location = new System.Drawing.Point(321, 1);
+            this._txtLog.CustomButton.Location = new System.Drawing.Point(375, 1);
             this._txtLog.CustomButton.Name = "";
-            this._txtLog.CustomButton.Size = new System.Drawing.Size(55, 55);
+            this._txtLog.CustomButton.Size = new System.Drawing.Size(53, 53);
             this._txtLog.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this._txtLog.CustomButton.TabIndex = 1;
             this._txtLog.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this._txtLog.CustomButton.UseSelectable = true;
             this._txtLog.CustomButton.Visible = false;
             this._txtLog.Lines = new string[0];
-            this._txtLog.Location = new System.Drawing.Point(23, 537);
+            this._txtLog.Location = new System.Drawing.Point(23, 576);
             this._txtLog.MaxLength = 32767;
             this._txtLog.Multiline = true;
             this._txtLog.Name = "_txtLog";
@@ -432,7 +444,7 @@
             this._txtLog.SelectionLength = 0;
             this._txtLog.SelectionStart = 0;
             this._txtLog.ShortcutsEnabled = true;
-            this._txtLog.Size = new System.Drawing.Size(377, 57);
+            this._txtLog.Size = new System.Drawing.Size(429, 55);
             this._txtLog.TabIndex = 5;
             this._txtLog.Theme = MetroFramework.MetroThemeStyle.Dark;
             this._txtLog.UseSelectable = true;
@@ -442,7 +454,7 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(23, 512);
+            this.metroLabel3.Location = new System.Drawing.Point(23, 554);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(31, 19);
             this.metroLabel3.TabIndex = 6;
@@ -458,7 +470,7 @@
             this.metroPanel1.HorizontalScrollbarBarColor = true;
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel1.HorizontalScrollbarSize = 10;
-            this.metroPanel1.Location = new System.Drawing.Point(73, 637);
+            this.metroPanel1.Location = new System.Drawing.Point(99, 674);
             this.metroPanel1.Name = "metroPanel1";
             this.metroPanel1.Size = new System.Drawing.Size(278, 30);
             this.metroPanel1.TabIndex = 7;
@@ -470,7 +482,7 @@
             // _btnClearLog
             // 
             this._btnClearLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._btnClearLog.Location = new System.Drawing.Point(325, 600);
+            this._btnClearLog.Location = new System.Drawing.Point(377, 637);
             this._btnClearLog.Name = "_btnClearLog";
             this._btnClearLog.Size = new System.Drawing.Size(75, 16);
             this._btnClearLog.TabIndex = 8;
@@ -483,8 +495,12 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this._sbPieOpacity);
             this.groupBox2.Controls.Add(this._chkShowDetailsInFullscreenMode);
             this.groupBox2.Controls.Add(this.metroLabel9);
+            this.groupBox2.Controls.Add(this._chkShowPie);
+            this.groupBox2.Controls.Add(this.metroLabel13);
+            this.groupBox2.Controls.Add(this.metroLabel12);
             this.groupBox2.Controls.Add(this._chkRepeatCards);
             this.groupBox2.Controls.Add(this.metroLabel10);
             this.groupBox2.Controls.Add(this._chkFullscreenModeEnabled);
@@ -493,7 +509,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.DarkGray;
             this.groupBox2.Location = new System.Drawing.Point(23, 63);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(377, 112);
+            this.groupBox2.Size = new System.Drawing.Size(429, 140);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General";
@@ -569,12 +585,120 @@
             this.metroLabel8.Text = "Enable Fullscreen Mode";
             this.metroLabel8.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.Location = new System.Drawing.Point(6, 94);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(62, 19);
+            this.metroLabel12.TabIndex = 7;
+            this.metroLabel12.Text = "Show Pie";
+            this.metroLabel12.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // _chkShowPie
+            // 
+            this._chkShowPie.AutoSize = true;
+            this._chkShowPie.Checked = true;
+            this._chkShowPie.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._chkShowPie.DisplayStatus = false;
+            this._chkShowPie.Location = new System.Drawing.Point(98, 94);
+            this._chkShowPie.Name = "_chkShowPie";
+            this._chkShowPie.Size = new System.Drawing.Size(50, 20);
+            this._chkShowPie.TabIndex = 0;
+            this._chkShowPie.Text = "On";
+            this._chkShowPie.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._chkShowPie.UseSelectable = true;
+            this._chkShowPie.CheckedChanged += new System.EventHandler(this._chkFullscreen_CheckedChanged);
+            // 
+            // _sbPieOpacity
+            // 
+            this._sbPieOpacity.LargeChange = 10;
+            this._sbPieOpacity.Location = new System.Drawing.Point(266, 103);
+            this._sbPieOpacity.Maximum = 100;
+            this._sbPieOpacity.Minimum = 10;
+            this._sbPieOpacity.MouseWheelBarPartitions = 10;
+            this._sbPieOpacity.Name = "_sbPieOpacity";
+            this._sbPieOpacity.Orientation = MetroFramework.Controls.MetroScrollOrientation.Horizontal;
+            this._sbPieOpacity.ScrollbarSize = 10;
+            this._sbPieOpacity.Size = new System.Drawing.Size(92, 10);
+            this._sbPieOpacity.TabIndex = 8;
+            this._sbPieOpacity.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._sbPieOpacity.UseBarColor = true;
+            this._sbPieOpacity.UseCustomBackColor = true;
+            this._sbPieOpacity.UseSelectable = true;
+            this._sbPieOpacity.Value = 10;
+            // 
+            // metroLabel13
+            // 
+            this.metroLabel13.AutoSize = true;
+            this.metroLabel13.Location = new System.Drawing.Point(173, 95);
+            this.metroLabel13.Name = "metroLabel13";
+            this.metroLabel13.Size = new System.Drawing.Size(76, 19);
+            this.metroLabel13.TabIndex = 7;
+            this.metroLabel13.Text = "Pie Opacity";
+            this.metroLabel13.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // _txtFavoritedFiles
+            // 
+            this._txtFavoritedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this._txtFavoritedFiles.CustomButton.Image = null;
+            this._txtFavoritedFiles.CustomButton.Location = new System.Drawing.Point(362, 1);
+            this._txtFavoritedFiles.CustomButton.Name = "";
+            this._txtFavoritedFiles.CustomButton.Size = new System.Drawing.Size(41, 41);
+            this._txtFavoritedFiles.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this._txtFavoritedFiles.CustomButton.TabIndex = 1;
+            this._txtFavoritedFiles.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this._txtFavoritedFiles.CustomButton.UseSelectable = true;
+            this._txtFavoritedFiles.CustomButton.Visible = false;
+            this._txtFavoritedFiles.Lines = new string[0];
+            this._txtFavoritedFiles.Location = new System.Drawing.Point(15, 292);
+            this._txtFavoritedFiles.MaxLength = 32767;
+            this._txtFavoritedFiles.Multiline = true;
+            this._txtFavoritedFiles.Name = "_txtFavoritedFiles";
+            this._txtFavoritedFiles.PasswordChar = '\0';
+            this._txtFavoritedFiles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this._txtFavoritedFiles.SelectedText = "";
+            this._txtFavoritedFiles.SelectionLength = 0;
+            this._txtFavoritedFiles.SelectionStart = 0;
+            this._txtFavoritedFiles.ShortcutsEnabled = true;
+            this._txtFavoritedFiles.Size = new System.Drawing.Size(404, 43);
+            this._txtFavoritedFiles.TabIndex = 14;
+            this._txtFavoritedFiles.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._txtFavoritedFiles.UseSelectable = true;
+            this._txtFavoritedFiles.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this._txtFavoritedFiles.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroLabel14
+            // 
+            this.metroLabel14.AutoSize = true;
+            this.metroLabel14.Location = new System.Drawing.Point(14, 270);
+            this.metroLabel14.Name = "metroLabel14";
+            this.metroLabel14.Size = new System.Drawing.Size(95, 19);
+            this.metroLabel14.TabIndex = 15;
+            this.metroLabel14.Text = "Favorited Files:";
+            this.metroLabel14.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // _lblFavoritedFiles
+            // 
+            this._lblFavoritedFiles.AutoSize = true;
+            this._lblFavoritedFiles.Location = new System.Drawing.Point(110, 270);
+            this._lblFavoritedFiles.Name = "_lblFavoritedFiles";
+            this._lblFavoritedFiles.Size = new System.Drawing.Size(16, 19);
+            this._lblFavoritedFiles.TabIndex = 15;
+            this._lblFavoritedFiles.Tag = "0";
+            this._lblFavoritedFiles.Text = "0";
+            this._lblFavoritedFiles.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
             // _btnSave
             // 
             this._btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._btnSave.BackgroundImage = global::ArtPop.Properties.Resources.appbar_save;
             this._btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnSave.Location = new System.Drawing.Point(362, 37);
+            this._btnSave.Location = new System.Drawing.Point(417, 37);
             this._btnSave.Name = "_btnSave";
             this._btnSave.Size = new System.Drawing.Size(35, 30);
             this._btnSave.TabIndex = 14;
@@ -586,7 +710,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 690);
+            this.ClientSize = new System.Drawing.Size(475, 727);
             this.Controls.Add(this._btnSave);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this._btnClearLog);
@@ -645,5 +769,12 @@
         private MetroFramework.Controls.MetroLabel metroLabel11;
         private MetroFramework.Controls.MetroTextBox _txtExcludedFiles;
         private MetroFramework.Controls.MetroButton _btnSave;
+        private MetroFramework.Controls.MetroScrollBar _sbPieOpacity;
+        private MetroFramework.Controls.MetroToggle _chkShowPie;
+        private MetroFramework.Controls.MetroLabel metroLabel13;
+        private MetroFramework.Controls.MetroLabel metroLabel12;
+        private MetroFramework.Controls.MetroLabel _lblFavoritedFiles;
+        private MetroFramework.Controls.MetroLabel metroLabel14;
+        private MetroFramework.Controls.MetroTextBox _txtFavoritedFiles;
     }
 }

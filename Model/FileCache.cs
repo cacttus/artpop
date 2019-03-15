@@ -22,6 +22,7 @@ namespace ArtPop
         public int Searched { get; private set; }
 
         public List<string> ExcludedFiles { get; set; } = new List<string>();
+        public List<string> FavoritedFiles { get; set; } = new List<string>();
 
         public List<string> Files
         {
@@ -71,50 +72,60 @@ namespace ArtPop
 
                 SearchTask = new Task(((Action)(() =>
                 {
-                    Globals.MainForm.SetStatus("Gathering Files...");
-                    //*Faster than gather files recursively
-                    //*Also faster than Directory.GetFiles avoids memory issues
-                    //https://stackoverflow.com/questions/163162/can-you-call-directory-getfiles-with-multiple-filters
-                    IEnumerable<string> files = Directory.EnumerateFiles(
-                        dir, "*.*",
-                        SearchOption.AllDirectories
-                        ).ToArray();
-
-                    Searched = 0;
-
-                    Globals.MainForm.SetStatus("Filtering Extensions...");
-
-                    string eTest = System.IO.Path.GetExtension(files.ToList()[0]);
-
-                    //Filter Extensions
-                    List<string> filtered = files.Where(x =>
-                        System.IO.Path.GetExtension(x).Length > 0 ?
-                        lstExtensions.Contains(
-                            System.IO.Path.GetExtension(x).ToLower()
-                        ) : false
-                    ).ToList();
-
-                    //Filter width /height
-                    Globals.MainForm.SetStatus("Filtering Width/Height...");
-                    FilterWidthHeight(filtered, filter);
-
-                    Globals.MainForm.SetStatus("Filtering: Excluding " + ExcludedFiles.Count.ToString() + " Files...");
-                    foreach(string s in ExcludedFiles)
+                    try
                     {
-                        filtered.RemoveAll(x=>x.Equals(s));
+
+                        Globals.MainForm.SetSearchStatus("Gathering Files...");
+                        //*Faster than gather files recursively
+                        //*Also faster than Directory.GetFiles avoids memory issues
+                        //https://stackoverflow.com/questions/163162/can-you-call-directory-getfiles-with-multiple-filters
+                        IEnumerable<string> files = Directory.EnumerateFiles(
+                            dir, "*.*",
+                            SearchOption.AllDirectories
+                            ).ToArray();
+
+                        Searched = 0;
+
+                        Globals.MainForm.SetSearchStatus("Filtering Extensions...");
+
+                        string eTest = System.IO.Path.GetExtension(files.ToList()[0]);
+
+                        //Filter Extensions
+                        List<string> filtered = files.Where(x =>
+                            System.IO.Path.GetExtension(x).Length > 0 ?
+                            lstExtensions.Contains(
+                                System.IO.Path.GetExtension(x).ToLower()
+                            ) : false
+                        ).ToList();
+
+                        //Filter width /height
+                        Globals.MainForm.SetSearchStatus("Filtering Width/Height...");
+                        FilterWidthHeight(filtered, filter);
+
+                        Globals.MainForm.SetSearchStatus("Filtering: Excluding " + ExcludedFiles.Count.ToString() + " Files...");
+                        foreach (string s in ExcludedFiles)
+                        {
+                            filtered.RemoveAll(x => String.IsNullOrEmpty(x) || x.Equals(s));
+                        }
+
+                        lock (_objFileCacheLockObject)
+                        {
+                            Files = filtered;
+                        }
+                        Globals.MainForm.SetSearchStatus("Done.");
+
+                        //Invoke completion actino on main thread
+                        Globals.MainForm.BeginInvoke((Action)(() =>
+                        {
+                            objCompletionAction();
+                        }));
+                    }
+                    catch (Exception ex)
+                    {
+                        Globals.LogError(ex.ToString());
+                        Globals.MainForm.SetSearchStatus("Error during search.");
                     }
 
-                    lock (_objFileCacheLockObject)
-                    {
-                        Files = filtered;
-                    }
-                    Globals.MainForm.SetStatus("Done.");
-
-                    //Invoke completion actino on main thread
-                    Globals.MainForm.BeginInvoke((Action)(() =>
-                    {
-                        objCompletionAction();
-                    }));
 
                 })), SearchTaskCancellationToken);
 
@@ -163,13 +174,13 @@ namespace ArtPop
                     Task tak = new Task(((Action)(() =>
                     {
                         int ifile;
-                        for (ifile = starts[temp]; ifile < (starts[temp]+len); ++ifile)
+                        for (ifile = starts[temp]; ifile < (starts[temp] + len); ++ifile)
                         {
                             TotalWHFiltered++;
 
                             if (TotalWHFiltered % 500 == 0)
                             {
-                                Globals.MainForm.SetStatus("Filtering W/H..." + TotalWHFiltered + "/" + lstFiles.Count);
+                                Globals.MainForm.SetSearchStatus("Filtering W/H..." + TotalWHFiltered + "/" + lstFiles.Count);
                             }
 
                             if (myToken.IsCancellationRequested)
