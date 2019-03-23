@@ -40,12 +40,16 @@
             this._dtpTime = new System.Windows.Forms.DateTimePicker();
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this._cboDifficulty = new MetroFramework.Controls.MetroComboBox();
+            this._chkTakeABreak = new MetroFramework.Controls.MetroCheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // _btnApply
             // 
             this._btnApply.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this._btnApply.Location = new System.Drawing.Point(118, 348);
+            this._btnApply.Location = new System.Drawing.Point(116, 426);
             this._btnApply.Name = "_btnApply";
             this._btnApply.Size = new System.Drawing.Size(83, 25);
             this._btnApply.TabIndex = 5;
@@ -57,7 +61,7 @@
             // _btnCancel
             // 
             this._btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this._btnCancel.Location = new System.Drawing.Point(207, 348);
+            this._btnCancel.Location = new System.Drawing.Point(205, 426);
             this._btnCancel.Name = "_btnCancel";
             this._btnCancel.Size = new System.Drawing.Size(83, 25);
             this._btnCancel.TabIndex = 6;
@@ -69,7 +73,7 @@
             // _btnOk
             // 
             this._btnOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this._btnOk.Location = new System.Drawing.Point(29, 348);
+            this._btnOk.Location = new System.Drawing.Point(27, 426);
             this._btnOk.Name = "_btnOk";
             this._btnOk.Size = new System.Drawing.Size(83, 25);
             this._btnOk.TabIndex = 7;
@@ -96,7 +100,7 @@
             // 
             // 
             this._txtName.CustomButton.Image = null;
-            this._txtName.CustomButton.Location = new System.Drawing.Point(245, 1);
+            this._txtName.CustomButton.Location = new System.Drawing.Point(241, 1);
             this._txtName.CustomButton.Name = "";
             this._txtName.CustomButton.Size = new System.Drawing.Size(21, 21);
             this._txtName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -115,7 +119,7 @@
             this._txtName.SelectionLength = 0;
             this._txtName.SelectionStart = 0;
             this._txtName.ShortcutsEnabled = true;
-            this._txtName.Size = new System.Drawing.Size(267, 23);
+            this._txtName.Size = new System.Drawing.Size(263, 23);
             this._txtName.TabIndex = 8;
             this._txtName.Text = "MyExercise";
             this._txtName.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -142,7 +146,7 @@
             // 
             // 
             this._txtInstruction.CustomButton.Image = null;
-            this._txtInstruction.CustomButton.Location = new System.Drawing.Point(245, 1);
+            this._txtInstruction.CustomButton.Location = new System.Drawing.Point(241, 1);
             this._txtInstruction.CustomButton.Name = "";
             this._txtInstruction.CustomButton.Size = new System.Drawing.Size(21, 21);
             this._txtInstruction.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -161,7 +165,7 @@
             this._txtInstruction.SelectionLength = 0;
             this._txtInstruction.SelectionStart = 0;
             this._txtInstruction.ShortcutsEnabled = true;
-            this._txtInstruction.Size = new System.Drawing.Size(267, 23);
+            this._txtInstruction.Size = new System.Drawing.Size(263, 23);
             this._txtInstruction.TabIndex = 8;
             this._txtInstruction.Text = "Draw Face Only";
             this._txtInstruction.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -224,11 +228,47 @@
             this._cboDifficulty.UseSelectable = true;
             this._cboDifficulty.SelectedIndexChanged += new System.EventHandler(this.metroComboBox1_SelectedIndexChanged);
             // 
+            // _chkTakeABreak
+            // 
+            this._chkTakeABreak.AutoSize = true;
+            this._chkTakeABreak.Location = new System.Drawing.Point(22, 19);
+            this._chkTakeABreak.Name = "_chkTakeABreak";
+            this._chkTakeABreak.Size = new System.Drawing.Size(54, 15);
+            this._chkTakeABreak.TabIndex = 12;
+            this._chkTakeABreak.Text = "Pause";
+            this._chkTakeABreak.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._chkTakeABreak.UseSelectable = true;
+            this._chkTakeABreak.CheckedChanged += new System.EventHandler(this._chkTakeABreak_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this._chkTakeABreak);
+            this.groupBox1.Location = new System.Drawing.Point(36, 332);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(262, 50);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            // 
+            // metroLabel5
+            // 
+            this.metroLabel5.AutoSize = true;
+            this.metroLabel5.Location = new System.Drawing.Point(27, 320);
+            this.metroLabel5.Name = "metroLabel5";
+            this.metroLabel5.Size = new System.Drawing.Size(55, 19);
+            this.metroLabel5.TabIndex = 9;
+            this.metroLabel5.Text = "Options";
+            this.metroLabel5.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
             // ExerciseEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 396);
+            this.ClientSize = new System.Drawing.Size(321, 474);
+            this.Controls.Add(this.metroLabel5);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this._cboDifficulty);
             this.Controls.Add(this._dtpTime);
             this.Controls.Add(this.metroLabel4);
@@ -245,6 +285,8 @@
             this.Text = "Edit Exercise";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.Load += new System.EventHandler(this.ExerciseEditorForm_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,5 +305,8 @@
         private System.Windows.Forms.DateTimePicker _dtpTime;
         private MetroFramework.Controls.MetroLabel metroLabel4;
         private MetroFramework.Controls.MetroComboBox _cboDifficulty;
+        private MetroFramework.Controls.MetroCheckBox _chkTakeABreak;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private MetroFramework.Controls.MetroLabel metroLabel5;
     }
 }

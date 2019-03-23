@@ -14,6 +14,8 @@ namespace ArtPop
 {
     public partial class SettingsForm : MetroForm
     {
+        public bool ReloadingSettings { get; set; }//True if we need to reload this form to set the defaults.
+
         private ArtPopNumericUpDown _nudMinWidth;
         private ArtPopNumericUpDown _nudMinHeight;
         private ArtPopNumericUpDown _nudMaxWidth;
@@ -54,11 +56,16 @@ namespace ArtPop
         public SettingsForm()
         {
             InitializeComponent();
+            
 
             _nudMinWidth = MakeNud(800, _pnlMinWidth);
             _nudMinHeight = MakeNud(800, _pnlMinHeight);
-            _nudMaxWidth = MakeNud(99999, _pnlMaxWidth);
-            _nudMaxHeight = MakeNud(99999, _pnlMaxHeight);
+            _nudMaxWidth = MakeNud(9999, _pnlMaxWidth);
+            _nudMaxHeight = MakeNud(9999, _pnlMaxHeight);
+            foreach (ListViewItem lsv in _lsvFileTypes.Items)
+            {
+                lsv.Checked = false;
+            }
             SelectFileType("PNG");
             SelectFileType("JPG");
             _txtSearchPath.Text = System.Environment.CurrentDirectory;
@@ -66,6 +73,8 @@ namespace ArtPop
             _sbPieOpacity.Value = 60;
 
         }
+
+        #region Public:Methods
 
         public void ExcludeFile(string file)
         {
@@ -116,11 +125,11 @@ namespace ArtPop
                 _btnSearch.Text = "Cancel Search";
             }
         }
-        
-        #region Public:Methods
         public void Log(string st)
         {
-            _txtLog.AppendText(st + "\r\n");
+            string dt = DateTime.Now.ToString("yyyyMMdd,hh:mm:sstt");
+            _txtLog.AppendText(dt + "> " + st);
+            _txtLog.AppendText(Environment.NewLine);
 
             //Limit log to not be too much
             int max = 32767 * 2;
@@ -131,7 +140,6 @@ namespace ArtPop
 
             _txtLog.SelectionStart = _txtLog.Text.Length;
         }
-
         public List<string> GetFileTypes()
         {
             List<string> ls = new List<string>();
@@ -151,7 +159,6 @@ namespace ArtPop
         {
             //Defaults
             LoadData();
-
         }
         private void _btnCancel_Click(object sender, EventArgs e)
         {
@@ -215,18 +222,21 @@ namespace ArtPop
         #endregion
 
         #region Private:Methods
+
         private void CreateDefaultSession()
         {
+            Sessions.Clear();
+            Exercises.Clear();
+
             Session x = new Session();
             x.Name = "Default";
             x.Id = ++Globals.Id_Gen;
 
             Exercise e1 = new Exercise();
-            e1.Name = "2Min Speed";
-            e1.Instruction = "Draw as much as you can.";
-            e1.Duration = new TimeSpan(0, 2, 0);
+            e1.Name = "5s Speed";
+            e1.Instruction = "Draw as much as you can in 5s.";
+            e1.Duration = new TimeSpan(0, 0, 5);
             e1.Difficulty = "Medium";
-            e1.Id = ++Globals.Id_Gen;
             Exercises.Add(e1);
 
             Exercise e2 = new Exercise();
@@ -234,10 +244,17 @@ namespace ArtPop
             e2.Instruction = "Draw as much as you can.";
             e2.Duration = new TimeSpan(0, 5, 0);
             e2.Difficulty = "Medium";
-            e2.Id = ++Globals.Id_Gen;
             Exercises.Add(e2);
 
+            Exercise e3 = new Exercise();
+            e3.Name = "5s Break";
+            e3.Instruction = "5s Break";
+            e3.Duration = new TimeSpan(0, 0, 5);
+            e3.Difficulty = "";
+            Exercises.Add(e3);
+
             x.Exercises.Add(e1.Id);
+            x.Exercises.Add(e3.Id);
             //  x.Exercises.Add(e2.Id);
 
             Sessions.Add(x);
@@ -277,7 +294,7 @@ namespace ArtPop
 
             nud.Min = 1;
             nud.Max = 32767;
-            nud.Value2 = 600;
+            nud.Value2 = def;
             nud.DataType = DataType.Int32;
             nud.ValueChanged = ValidateImageNuds;
 
@@ -360,13 +377,16 @@ namespace ArtPop
                 List<string> errors = new List<string>();
                 List<string> encountered_tokens = new List<string>();
                 string[] text = new string[0];
-                string path = Globals.GetSettingsFilePath();
-
-                Globals.LogInfo("Loading Settings from " + path);
+                string path = ReloadingSettings ? "" : Globals.GetSettingsFilePath();
 
                 if (System.IO.File.Exists(path))
                 {
+                    Globals.LogInfo("Loading Settings from " + path);
                     text = System.IO.File.ReadAllLines(path);
+                }
+                else
+                {
+                    Globals.LogInfo("Loading defaults.");
                 }
 
                 foreach (string line in text)
@@ -396,7 +416,8 @@ namespace ArtPop
                         }
                         else if (KeyComp(key, LogDataKey, ref encountered_tokens))
                         {
-                            _txtLog.Text = val;
+                            string logrep = val.Replace("<br/>", Environment.NewLine);
+                            _txtLog.Text = logrep;
                         }
                         else if (KeyComp(key, SelectedFileTypesKey, ref encountered_tokens))
                         {
@@ -525,6 +546,9 @@ namespace ArtPop
         {
             try
             {
+                //Set reloadingsettings to false to prevent us from keeping on loading the defaults.
+                this.ReloadingSettings = false;
+
                 Globals.LogInfo("Saving Settings. ");
 
                 StringBuilder data = GetSaveDataString();
@@ -561,7 +585,8 @@ namespace ArtPop
             WriteValue(ref data, SearchMinHeightKey, _nudMinHeight.Value2.ToString());
             WriteValue(ref data, SearchMaxHeightKey, _nudMaxHeight.Value2.ToString());
 
-            WriteValue(ref data, LogDataKey, _txtLog.Text);
+            string logrep = _txtLog.Text.Replace(Environment.NewLine, "<br/>");
+            WriteValue(ref data, LogDataKey, logrep);
 
             List<string> fts = new List<string>();
             foreach (ListViewItem ls in _lsvFileTypes.Items)
@@ -617,6 +642,42 @@ namespace ArtPop
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void _btnDefaults_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Revert settings back to defaults?", "Defaults?", MessageBoxButtons.YesNo)==DialogResult.Yes)
+            {
+                ReloadingSettings = true;
+                Hide();
+            }
+
+        }
+
+        private void _btnSelectSearchPath_Click(object sender, EventArgs e)
+        {
+            string ad = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            string[] folder = Globals.GetValidUserFolder(ad, false);
+            if(folder.Length==1)
+            {
+                _txtSearchPath.Text = folder[0];
+                MarkChanged();
+            }
+        }
+
+        private void _txtSearchPath_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Hide();
+            }
         }
     }
 }

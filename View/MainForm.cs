@@ -17,7 +17,6 @@ namespace ArtPop
         public SettingsForm SettingsForm { get; private set; }
         public PictureViewerForm PictureViewerForm { get; private set; }
         public Sequencer Sequencer { get; private set; } = null;
-
         Dictionary<Keys, Action> Shortcuts = new Dictionary<Keys, Action>();
         int WalkingGuyInitialYFromBase = 0;
         Timer WalkingGuyTimer = new Timer();
@@ -27,10 +26,7 @@ namespace ArtPop
             InitializeComponent();
             Globals.SetMainForm(this);
             //Initialize Settings.
-            SettingsForm = new SettingsForm();
-            SettingsForm.Show();
-            SettingsForm.Hide();
-
+            CreateSettingsForm(false);
 
             SetupShortcuts();
 
@@ -46,16 +42,25 @@ namespace ArtPop
                 {
                     _pbWalkingGuy.Location = new Point(-_pbWalkingGuy.Width, Height + WalkingGuyInitialYFromBase);
                 }
-
-                if (PictureViewerForm != null)
+                
+                if (Sequencer != null && Sequencer.PlayState == PlayState.Playing)
                 {
-                    if (Sequencer != null)
+                    if (PictureViewerForm != null)
                     {
-                        float f = (float)(Sequencer.ElapsedMillis) / (float)(Sequencer.TotalExerciseTimeMillis);
+                        if (Sequencer != null)
+                        {
+                            float f = (float)(Sequencer.ElapsedMillis) / (float)(Sequencer.TotalExerciseTimeMillis);
 
-                        PictureViewerForm.RepaintTimerPie(f);
+                            PictureViewerForm.RepaintTimerPie(f);
+                        }
                     }
                 }
+                else
+                {
+                    //*Hide the Pie
+                    PictureViewerForm.RepaintTimerPie(0);
+                }
+
             };
             WalkingGuyTimer.Stop();
 
@@ -70,14 +75,22 @@ namespace ArtPop
             Show();
             BringToFront();
         }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }
         private void _btnSettings_Click(object sender, EventArgs e)
         {
-            this.SettingsForm.ShowDialog(this);
+            SettingsForm.ShowDialog(this);
+
+            //If reloading settings then create again with defaults
+            if (SettingsForm.ReloadingSettings)
+            {
+                CreateSettingsForm(true);
+                SettingsForm.ShowDialog(this);
+                SettingsForm.ReloadingSettings = false;
+            }
+
         }
         private void _btnExit_Click(object sender, EventArgs e)
         {
@@ -171,8 +184,14 @@ namespace ArtPop
         #endregion
 
         #region Private:Methods
-
-
+        private void CreateSettingsForm(bool defaults)
+        {
+            //Set defaults to true to reload the defaults for settings form.
+            SettingsForm = new SettingsForm();
+            SettingsForm.ReloadingSettings = defaults;
+            SettingsForm.Show();
+            SettingsForm.Hide();
+        }
         private Session GetSelectedSession()
         {
             if (_cboSessions.SelectedIndex < 0)
@@ -217,6 +236,7 @@ namespace ArtPop
                         GetSelectedSession(),
                         () =>
                         {
+                            //onShuffle
                             //UpdatePlaylist
                             _lsvPlaylist.Items.Clear();
                             foreach (string card in Sequencer.Cards)
@@ -226,13 +246,34 @@ namespace ArtPop
                         },
                         () =>
                         {
+                            //OnExerciseStart 
+
                             //CycleImage
                             if (PictureViewerForm == null)
                             {
                                 PictureViewerForm = new PictureViewerForm();
                             }
-                            PictureViewerForm.SetImage(Sequencer.CurrentCard);
-                            PictureViewerForm.InstructionText = Sequencer.CurrentExercise.Instruction;
+
+                            //If we are a pause exercise then set no image and TakeABreak it
+                            if (Sequencer.CurrentExercise.TakeABreak)
+                            {
+                                PictureViewerForm.SetImage(null);
+                                PictureViewerForm.InstructionText = "Take a break.";
+                            }
+                            else
+                            {
+                                PictureViewerForm.SetImage(Sequencer.CurrentCard);
+                                PictureViewerForm.InstructionText = Sequencer.CurrentExercise.Instruction;
+                            }
+
+                        },
+                        () =>
+                        {
+                            //OnSessionEnd
+                            StopTimerAction();
+                            //Hide the PI
+                            PictureViewerForm?.RepaintTimerPie(0);
+
                         }
                     );
                 }
@@ -266,22 +307,21 @@ namespace ArtPop
             WalkingGuyTimer.Stop();
             _pbWalkingGuy.Visible = false;
         }
-        public void PictureViewerWidnowClosed()
+        public void PictureViewerWindowClosed()
         {
             PictureViewerForm = null;
             PauseTimer();
         }
-        private void StopTimerAction()
+        private void StopTimerAction(bool closeViewer = false)
         {
             Sequencer.Stop();
-
 
             _cboSessions.Enabled = _btnSession.Enabled = _btnSettings.Enabled = true;
             _btnPlay.BackgroundImage = new Bitmap(Properties.Resources.appbar_timer_play);
             WalkingGuyTimer.Stop();
             _pbWalkingGuy.Visible = false;
             _btnStop.Visible = false;
-            if (PictureViewerForm != null)
+            if (PictureViewerForm != null && closeViewer)
             {
                 PictureViewerForm.Close();
                 PictureViewerForm = null;

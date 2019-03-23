@@ -14,15 +14,12 @@ namespace ArtPop
 {
     public partial class SessionEditorForm : MetroForm
     {
-
         bool _bChanged = false;
-
 
         public SessionEditorForm()
         {
             InitializeComponent();
         }
-
         private void HideHorizontalScrollBar()
         {
 
@@ -62,11 +59,11 @@ namespace ArtPop
             {
                 _pnlSessionStats.Visible = false;
             }
-
-
         }
         private void SessionEditorForm_Load(object sender, EventArgs e)
         {
+            Globals.RegisterExtensions(this);
+
             _lsvSessionExercises.Scrollable = true;
             _lsvSessionExercises.View = View.Details;
             _lsvSessionExercises.Columns.Add(new ColumnHeader() { Text = "", Name = "col1" });
@@ -84,20 +81,18 @@ namespace ArtPop
 
             MarkChanged(false);
         }
-
         private void _txtName_LostFocus(object sender, EventArgs e)
         {
             int i = _cboSessionList.SelectedIndex;
             RefreshSessionsComboBox();
             _cboSessionList.SelectedIndex = i;
         }
-
         private void RefreshData()
         {
             RefreshSessionsComboBox();
             RefreshConfiguredExercises();
 
-            UpdateSessionStats();
+            PopulateSession(null);
         }
         private void RefreshSessionsComboBox()
         {
@@ -136,8 +131,6 @@ namespace ArtPop
                 s.Name = "MySession-" + suffix.ToString();
             }
 
-            s.Id = ++Globals.Id_Gen;
-
             Globals.MainForm.SettingsForm.Sessions.Add(s);
 
             RefreshSessionsComboBox();
@@ -167,8 +160,6 @@ namespace ArtPop
             }
             return Globals.MainForm.SettingsForm.Sessions[_cboSessionList.SelectedIndex];
         }
-
-
         private void _cboSessionList_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateSelectedSession();
@@ -217,7 +208,13 @@ namespace ArtPop
                 _btnMoveExerciseDown.Enabled =
                 _btnMoveExerciseUp.Enabled =
                 _lsvSessionExercises.Enabled =
+                _btnMoveLeft.Enabled =
+                _lsvSessionExercises.Enabled =
+                _txtName.Enabled =
+                _pnlSessionStats.Visible=
                 enable;
+
+
         }
         private void MoveExerciseToSession(int id)
         {

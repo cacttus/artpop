@@ -148,6 +148,9 @@
   <data name="appbar_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\rsc\appbar.edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="appbar_folder_ellipsis" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\rsc\appbar.folder.ellipsis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="appbar_food" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Rsc\appbar.food.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -183,6 +186,9 @@
   </data>
   <data name="appbar_timer_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\rsc\appbar.timer.stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="appbar_undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\rsc\appbar.undo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="appbar_window_restore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\rsc\appbar.window.restore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

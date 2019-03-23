@@ -30,20 +30,21 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PictureViewerForm));
             this._pnlDetails = new MetroFramework.Controls.MetroPanel();
-            this._btnRestore_Fullscreen = new MetroFramework.Controls.MetroButton();
-            this._btnRestore = new MetroFramework.Controls.MetroButton();
-            this._btnPrevious = new MetroFramework.Controls.MetroButton();
-            this._btnNext = new MetroFramework.Controls.MetroButton();
-            this._btnPlay = new MetroFramework.Controls.MetroButton();
             this._lblTimer = new System.Windows.Forms.Label();
             this._txtInstructions = new System.Windows.Forms.TextBox();
             this._pnlPie = new MetroFramework.Controls.MetroPanel();
             this._txtMessage = new System.Windows.Forms.TextBox();
-            this._pbImage = new System.Windows.Forms.PictureBox();
             this._btnFavorite = new System.Windows.Forms.PictureBox();
+            this._btnRestore_Fullscreen = new MetroFramework.Controls.MetroButton();
+            this._btnRestore = new MetroFramework.Controls.MetroButton();
+            this._btnPrevious = new MetroFramework.Controls.MetroButton();
+            this._btnOpenImageInFolder = new MetroFramework.Controls.MetroButton();
+            this._btnNext = new MetroFramework.Controls.MetroButton();
+            this._btnPlay = new MetroFramework.Controls.MetroButton();
+            this._pbImage = new System.Windows.Forms.PictureBox();
             this._pnlDetails.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._pbImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._btnFavorite)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._pbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // _pnlDetails
@@ -53,6 +54,7 @@
             this._pnlDetails.Controls.Add(this._btnRestore_Fullscreen);
             this._pnlDetails.Controls.Add(this._btnRestore);
             this._pnlDetails.Controls.Add(this._btnPrevious);
+            this._pnlDetails.Controls.Add(this._btnOpenImageInFolder);
             this._pnlDetails.Controls.Add(this._btnNext);
             this._pnlDetails.Controls.Add(this._btnPlay);
             this._pnlDetails.Controls.Add(this._lblTimer);
@@ -67,72 +69,6 @@
             this._pnlDetails.VerticalScrollbarBarColor = true;
             this._pnlDetails.VerticalScrollbarHighlightOnWheel = false;
             this._pnlDetails.VerticalScrollbarSize = 10;
-            // 
-            // _btnRestore_Fullscreen
-            // 
-            this._btnRestore_Fullscreen.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this._btnRestore_Fullscreen.BackgroundImage = global::ArtPop.Properties.Resources.appbar_window_restore;
-            this._btnRestore_Fullscreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnRestore_Fullscreen.Location = new System.Drawing.Point(-33, 20);
-            this._btnRestore_Fullscreen.Name = "_btnRestore_Fullscreen";
-            this._btnRestore_Fullscreen.Size = new System.Drawing.Size(29, 26);
-            this._btnRestore_Fullscreen.TabIndex = 6;
-            this._btnRestore_Fullscreen.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this._btnRestore_Fullscreen.UseSelectable = true;
-            this._btnRestore_Fullscreen.Visible = false;
-            this._btnRestore_Fullscreen.Click += new System.EventHandler(this._btnRestore_Fullscreen_Click);
-            // 
-            // _btnRestore
-            // 
-            this._btnRestore.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this._btnRestore.BackgroundImage = global::ArtPop.Properties.Resources.appbar_window_restore;
-            this._btnRestore.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnRestore.Location = new System.Drawing.Point(704, 9);
-            this._btnRestore.Name = "_btnRestore";
-            this._btnRestore.Size = new System.Drawing.Size(45, 26);
-            this._btnRestore.TabIndex = 5;
-            this._btnRestore.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this._btnRestore.UseSelectable = true;
-            this._btnRestore.Click += new System.EventHandler(this._btnRestore_Click);
-            // 
-            // _btnPrevious
-            // 
-            this._btnPrevious.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this._btnPrevious.BackgroundImage = global::ArtPop.Properties.Resources.appbar_navigate_previous;
-            this._btnPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnPrevious.Location = new System.Drawing.Point(61, 8);
-            this._btnPrevious.Name = "_btnPrevious";
-            this._btnPrevious.Size = new System.Drawing.Size(31, 26);
-            this._btnPrevious.TabIndex = 5;
-            this._btnPrevious.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this._btnPrevious.UseSelectable = true;
-            this._btnPrevious.Click += new System.EventHandler(this._btnPrevious_Click);
-            // 
-            // _btnNext
-            // 
-            this._btnNext.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this._btnNext.BackgroundImage = global::ArtPop.Properties.Resources.appbar_navigate_next;
-            this._btnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnNext.Location = new System.Drawing.Point(98, 8);
-            this._btnNext.Name = "_btnNext";
-            this._btnNext.Size = new System.Drawing.Size(31, 26);
-            this._btnNext.TabIndex = 5;
-            this._btnNext.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this._btnNext.UseSelectable = true;
-            this._btnNext.Click += new System.EventHandler(this._btnNext_Click);
-            // 
-            // _btnPlay
-            // 
-            this._btnPlay.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this._btnPlay.BackgroundImage = global::ArtPop.Properties.Resources.appbar_timer_play;
-            this._btnPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnPlay.Location = new System.Drawing.Point(10, 8);
-            this._btnPlay.Name = "_btnPlay";
-            this._btnPlay.Size = new System.Drawing.Size(31, 26);
-            this._btnPlay.TabIndex = 5;
-            this._btnPlay.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this._btnPlay.UseSelectable = true;
-            this._btnPlay.Click += new System.EventHandler(this._btnPlay_Click);
             // 
             // _lblTimer
             // 
@@ -193,6 +129,96 @@
             this._txtMessage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._txtMessage.Visible = false;
             // 
+            // _btnFavorite
+            // 
+            this._btnFavorite.Image = ((System.Drawing.Image)(resources.GetObject("_btnFavorite.Image")));
+            this._btnFavorite.Location = new System.Drawing.Point(4, 9);
+            this._btnFavorite.Name = "_btnFavorite";
+            this._btnFavorite.Size = new System.Drawing.Size(33, 33);
+            this._btnFavorite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this._btnFavorite.TabIndex = 5;
+            this._btnFavorite.TabStop = false;
+            this._btnFavorite.Click += new System.EventHandler(this._btnFavorite_Click);
+            // 
+            // _btnRestore_Fullscreen
+            // 
+            this._btnRestore_Fullscreen.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this._btnRestore_Fullscreen.BackgroundImage = global::ArtPop.Properties.Resources.appbar_window_restore;
+            this._btnRestore_Fullscreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this._btnRestore_Fullscreen.Location = new System.Drawing.Point(-33, 20);
+            this._btnRestore_Fullscreen.Name = "_btnRestore_Fullscreen";
+            this._btnRestore_Fullscreen.Size = new System.Drawing.Size(29, 26);
+            this._btnRestore_Fullscreen.TabIndex = 6;
+            this._btnRestore_Fullscreen.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnRestore_Fullscreen.UseSelectable = true;
+            this._btnRestore_Fullscreen.Visible = false;
+            this._btnRestore_Fullscreen.Click += new System.EventHandler(this._btnRestore_Fullscreen_Click);
+            // 
+            // _btnRestore
+            // 
+            this._btnRestore.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this._btnRestore.BackgroundImage = global::ArtPop.Properties.Resources.appbar_window_restore;
+            this._btnRestore.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this._btnRestore.Location = new System.Drawing.Point(704, 9);
+            this._btnRestore.Name = "_btnRestore";
+            this._btnRestore.Size = new System.Drawing.Size(45, 26);
+            this._btnRestore.TabIndex = 5;
+            this._btnRestore.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnRestore.UseSelectable = true;
+            this._btnRestore.Click += new System.EventHandler(this._btnRestore_Click);
+            // 
+            // _btnPrevious
+            // 
+            this._btnPrevious.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this._btnPrevious.BackgroundImage = global::ArtPop.Properties.Resources.appbar_navigate_previous;
+            this._btnPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this._btnPrevious.Location = new System.Drawing.Point(61, 8);
+            this._btnPrevious.Name = "_btnPrevious";
+            this._btnPrevious.Size = new System.Drawing.Size(31, 26);
+            this._btnPrevious.TabIndex = 5;
+            this._btnPrevious.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnPrevious.UseSelectable = true;
+            this._btnPrevious.Click += new System.EventHandler(this._btnPrevious_Click);
+            // 
+            // _btnOpenImageInFolder
+            // 
+            this._btnOpenImageInFolder.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this._btnOpenImageInFolder.BackgroundImage = global::ArtPop.Properties.Resources.appbar_folder_ellipsis;
+            this._btnOpenImageInFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this._btnOpenImageInFolder.Location = new System.Drawing.Point(157, 8);
+            this._btnOpenImageInFolder.Name = "_btnOpenImageInFolder";
+            this._btnOpenImageInFolder.Size = new System.Drawing.Size(31, 26);
+            this._btnOpenImageInFolder.TabIndex = 5;
+            this._btnOpenImageInFolder.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnOpenImageInFolder.UseSelectable = true;
+            this._btnOpenImageInFolder.Click += new System.EventHandler(this._btnOpenImageInFolder_Click);
+            // 
+            // _btnNext
+            // 
+            this._btnNext.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this._btnNext.BackgroundImage = global::ArtPop.Properties.Resources.appbar_navigate_next;
+            this._btnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this._btnNext.Location = new System.Drawing.Point(98, 8);
+            this._btnNext.Name = "_btnNext";
+            this._btnNext.Size = new System.Drawing.Size(31, 26);
+            this._btnNext.TabIndex = 5;
+            this._btnNext.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnNext.UseSelectable = true;
+            this._btnNext.Click += new System.EventHandler(this._btnNext_Click);
+            // 
+            // _btnPlay
+            // 
+            this._btnPlay.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this._btnPlay.BackgroundImage = global::ArtPop.Properties.Resources.appbar_timer_play;
+            this._btnPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this._btnPlay.Location = new System.Drawing.Point(10, 8);
+            this._btnPlay.Name = "_btnPlay";
+            this._btnPlay.Size = new System.Drawing.Size(31, 26);
+            this._btnPlay.TabIndex = 5;
+            this._btnPlay.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnPlay.UseSelectable = true;
+            this._btnPlay.Click += new System.EventHandler(this._btnPlay_Click);
+            // 
             // _pbImage
             // 
             this._pbImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -205,17 +231,6 @@
             this._pbImage.TabIndex = 0;
             this._pbImage.TabStop = false;
             this._pbImage.Click += new System.EventHandler(this._pbImage_Click);
-            // 
-            // _btnFavorite
-            // 
-            this._btnFavorite.Image = ((System.Drawing.Image)(resources.GetObject("_btnFavorite.Image")));
-            this._btnFavorite.Location = new System.Drawing.Point(4, 9);
-            this._btnFavorite.Name = "_btnFavorite";
-            this._btnFavorite.Size = new System.Drawing.Size(33, 33);
-            this._btnFavorite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this._btnFavorite.TabIndex = 5;
-            this._btnFavorite.TabStop = false;
-            this._btnFavorite.Click += new System.EventHandler(this._btnFavorite_Click);
             // 
             // PictureViewerForm
             // 
@@ -240,8 +255,8 @@
             this.Shown += new System.EventHandler(this.PictureViewerForm_Shown);
             this._pnlDetails.ResumeLayout(false);
             this._pnlDetails.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._pbImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._btnFavorite)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._pbImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,5 +276,6 @@
         private MetroFramework.Controls.MetroPanel _pnlPie;
         private System.Windows.Forms.TextBox _txtMessage;
         private System.Windows.Forms.PictureBox _btnFavorite;
+        private MetroFramework.Controls.MetroButton _btnOpenImageInFolder;
     }
 }

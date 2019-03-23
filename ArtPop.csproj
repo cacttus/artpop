@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -166,6 +167,7 @@
     <Content Include="ArtPopLogo256.ico" />
     <Content Include="ArtPopLogo512.ico" />
     <Content Include="Changelog.txt" />
+    <None Include="rsc\appbar.undo.png" />
     <None Include="rsc\star_solid.png" />
     <None Include="rsc\star_hollow.png" />
     <None Include="rsc\appbar.save.png" />
@@ -184,6 +186,7 @@
     <None Include="rsc\appbar.page.delete.png" />
     <None Include="rsc\appbar.chevron.down.png" />
     <None Include="rsc\appbar.chevron.up.png" />
+    <None Include="rsc\appbar.folder.ellipsis.png" />
     <Content Include="rsc\appbar.question.png" />
     <None Include="rsc\appbar.shuffle.png" />
     <None Include="rsc\mario_run_gif.gif" />

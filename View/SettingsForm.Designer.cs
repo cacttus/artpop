@@ -43,7 +43,10 @@
             this._btnCancel = new MetroFramework.Controls.MetroButton();
             this._btnApply = new MetroFramework.Controls.MetroButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this._lblFavoritedFiles = new MetroFramework.Controls.MetroLabel();
             this._lblExcludedFiles = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel14 = new MetroFramework.Controls.MetroLabel();
+            this._txtFavoritedFiles = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
             this._txtExcludedFiles = new MetroFramework.Controls.MetroTextBox();
             this._txtSearchPath = new MetroFramework.Controls.MetroTextBox();
@@ -62,20 +65,19 @@
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this._btnClearLog = new MetroFramework.Controls.MetroButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this._sbPieOpacity = new MetroFramework.Controls.MetroScrollBar();
             this._chkShowDetailsInFullscreenMode = new MetroFramework.Controls.MetroToggle();
             this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
+            this._chkShowPie = new MetroFramework.Controls.MetroToggle();
+            this.metroLabel13 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
             this._chkRepeatCards = new MetroFramework.Controls.MetroToggle();
             this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
             this._chkFullscreenModeEnabled = new MetroFramework.Controls.MetroToggle();
             this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
-            this._chkShowPie = new MetroFramework.Controls.MetroToggle();
-            this._sbPieOpacity = new MetroFramework.Controls.MetroScrollBar();
-            this.metroLabel13 = new MetroFramework.Controls.MetroLabel();
-            this._txtFavoritedFiles = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel14 = new MetroFramework.Controls.MetroLabel();
-            this._lblFavoritedFiles = new MetroFramework.Controls.MetroLabel();
+            this._btnDefaults = new MetroFramework.Controls.MetroButton();
             this._btnSave = new MetroFramework.Controls.MetroButton();
+            this._btnSelectSearchPath = new MetroFramework.Controls.MetroButton();
             this.groupBox1.SuspendLayout();
             this.metroPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -164,6 +166,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this._btnSelectSearchPath);
             this.groupBox1.Controls.Add(this._lblFavoritedFiles);
             this.groupBox1.Controls.Add(this._lblExcludedFiles);
             this.groupBox1.Controls.Add(this.metroLabel14);
@@ -195,6 +198,17 @@
             this.groupBox1.Text = "Search";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // _lblFavoritedFiles
+            // 
+            this._lblFavoritedFiles.AutoSize = true;
+            this._lblFavoritedFiles.Location = new System.Drawing.Point(110, 270);
+            this._lblFavoritedFiles.Name = "_lblFavoritedFiles";
+            this._lblFavoritedFiles.Size = new System.Drawing.Size(16, 19);
+            this._lblFavoritedFiles.TabIndex = 15;
+            this._lblFavoritedFiles.Tag = "0";
+            this._lblFavoritedFiles.Text = "0";
+            this._lblFavoritedFiles.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
             // _lblExcludedFiles
             // 
             this._lblExcludedFiles.AutoSize = true;
@@ -205,6 +219,50 @@
             this._lblExcludedFiles.Tag = "0";
             this._lblExcludedFiles.Text = "0";
             this._lblExcludedFiles.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel14
+            // 
+            this.metroLabel14.AutoSize = true;
+            this.metroLabel14.Location = new System.Drawing.Point(14, 270);
+            this.metroLabel14.Name = "metroLabel14";
+            this.metroLabel14.Size = new System.Drawing.Size(95, 19);
+            this.metroLabel14.TabIndex = 15;
+            this.metroLabel14.Text = "Favorited Files:";
+            this.metroLabel14.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // _txtFavoritedFiles
+            // 
+            this._txtFavoritedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this._txtFavoritedFiles.CustomButton.Image = null;
+            this._txtFavoritedFiles.CustomButton.Location = new System.Drawing.Point(362, 1);
+            this._txtFavoritedFiles.CustomButton.Name = "";
+            this._txtFavoritedFiles.CustomButton.Size = new System.Drawing.Size(41, 41);
+            this._txtFavoritedFiles.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this._txtFavoritedFiles.CustomButton.TabIndex = 1;
+            this._txtFavoritedFiles.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this._txtFavoritedFiles.CustomButton.UseSelectable = true;
+            this._txtFavoritedFiles.CustomButton.Visible = false;
+            this._txtFavoritedFiles.Lines = new string[0];
+            this._txtFavoritedFiles.Location = new System.Drawing.Point(15, 292);
+            this._txtFavoritedFiles.MaxLength = 32767;
+            this._txtFavoritedFiles.Multiline = true;
+            this._txtFavoritedFiles.Name = "_txtFavoritedFiles";
+            this._txtFavoritedFiles.PasswordChar = '\0';
+            this._txtFavoritedFiles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this._txtFavoritedFiles.SelectedText = "";
+            this._txtFavoritedFiles.SelectionLength = 0;
+            this._txtFavoritedFiles.SelectionStart = 0;
+            this._txtFavoritedFiles.ShortcutsEnabled = true;
+            this._txtFavoritedFiles.Size = new System.Drawing.Size(404, 43);
+            this._txtFavoritedFiles.TabIndex = 14;
+            this._txtFavoritedFiles.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._txtFavoritedFiles.UseSelectable = true;
+            this._txtFavoritedFiles.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this._txtFavoritedFiles.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // metroLabel11
             // 
@@ -259,7 +317,7 @@
             // 
             // 
             this._txtSearchPath.CustomButton.Image = null;
-            this._txtSearchPath.CustomButton.Location = new System.Drawing.Point(366, 1);
+            this._txtSearchPath.CustomButton.Location = new System.Drawing.Point(351, 1);
             this._txtSearchPath.CustomButton.Name = "";
             this._txtSearchPath.CustomButton.Size = new System.Drawing.Size(21, 21);
             this._txtSearchPath.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -268,7 +326,7 @@
             this._txtSearchPath.CustomButton.UseSelectable = true;
             this._txtSearchPath.CustomButton.Visible = false;
             this._txtSearchPath.Lines = new string[0];
-            this._txtSearchPath.Location = new System.Drawing.Point(14, 115);
+            this._txtSearchPath.Location = new System.Drawing.Point(45, 114);
             this._txtSearchPath.MaxLength = 32767;
             this._txtSearchPath.Name = "_txtSearchPath";
             this._txtSearchPath.PasswordChar = '\0';
@@ -277,11 +335,13 @@
             this._txtSearchPath.SelectionLength = 0;
             this._txtSearchPath.SelectionStart = 0;
             this._txtSearchPath.ShortcutsEnabled = true;
-            this._txtSearchPath.Size = new System.Drawing.Size(388, 23);
+            this._txtSearchPath.Size = new System.Drawing.Size(373, 23);
             this._txtSearchPath.TabIndex = 12;
+            this._txtSearchPath.Theme = MetroFramework.MetroThemeStyle.Dark;
             this._txtSearchPath.UseSelectable = true;
             this._txtSearchPath.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this._txtSearchPath.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this._txtSearchPath.Click += new System.EventHandler(this._txtSearchPath_Click);
             // 
             // _lsvFileTypes
             // 
@@ -514,6 +574,24 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General";
             // 
+            // _sbPieOpacity
+            // 
+            this._sbPieOpacity.LargeChange = 10;
+            this._sbPieOpacity.Location = new System.Drawing.Point(266, 103);
+            this._sbPieOpacity.Maximum = 100;
+            this._sbPieOpacity.Minimum = 10;
+            this._sbPieOpacity.MouseWheelBarPartitions = 10;
+            this._sbPieOpacity.Name = "_sbPieOpacity";
+            this._sbPieOpacity.Orientation = MetroFramework.Controls.MetroScrollOrientation.Horizontal;
+            this._sbPieOpacity.ScrollbarSize = 10;
+            this._sbPieOpacity.Size = new System.Drawing.Size(92, 10);
+            this._sbPieOpacity.TabIndex = 8;
+            this._sbPieOpacity.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._sbPieOpacity.UseBarColor = true;
+            this._sbPieOpacity.UseCustomBackColor = true;
+            this._sbPieOpacity.UseSelectable = true;
+            this._sbPieOpacity.Value = 10;
+            // 
             // _chkShowDetailsInFullscreenMode
             // 
             this._chkShowDetailsInFullscreenMode.AutoSize = true;
@@ -538,6 +616,41 @@
             this.metroLabel9.TabIndex = 7;
             this.metroLabel9.Text = "Show Details Pane In Fullscreen Mode";
             this.metroLabel9.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // _chkShowPie
+            // 
+            this._chkShowPie.AutoSize = true;
+            this._chkShowPie.Checked = true;
+            this._chkShowPie.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._chkShowPie.DisplayStatus = false;
+            this._chkShowPie.Location = new System.Drawing.Point(98, 94);
+            this._chkShowPie.Name = "_chkShowPie";
+            this._chkShowPie.Size = new System.Drawing.Size(50, 20);
+            this._chkShowPie.TabIndex = 0;
+            this._chkShowPie.Text = "On";
+            this._chkShowPie.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._chkShowPie.UseSelectable = true;
+            this._chkShowPie.CheckedChanged += new System.EventHandler(this._chkFullscreen_CheckedChanged);
+            // 
+            // metroLabel13
+            // 
+            this.metroLabel13.AutoSize = true;
+            this.metroLabel13.Location = new System.Drawing.Point(173, 95);
+            this.metroLabel13.Name = "metroLabel13";
+            this.metroLabel13.Size = new System.Drawing.Size(76, 19);
+            this.metroLabel13.TabIndex = 7;
+            this.metroLabel13.Text = "Pie Opacity";
+            this.metroLabel13.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.Location = new System.Drawing.Point(6, 94);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(62, 19);
+            this.metroLabel12.TabIndex = 7;
+            this.metroLabel12.Text = "Show Pie";
+            this.metroLabel12.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // _chkRepeatCards
             // 
@@ -585,120 +698,25 @@
             this.metroLabel8.Text = "Enable Fullscreen Mode";
             this.metroLabel8.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroLabel12
+            // _btnDefaults
             // 
-            this.metroLabel12.AutoSize = true;
-            this.metroLabel12.Location = new System.Drawing.Point(6, 94);
-            this.metroLabel12.Name = "metroLabel12";
-            this.metroLabel12.Size = new System.Drawing.Size(62, 19);
-            this.metroLabel12.TabIndex = 7;
-            this.metroLabel12.Text = "Show Pie";
-            this.metroLabel12.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // _chkShowPie
-            // 
-            this._chkShowPie.AutoSize = true;
-            this._chkShowPie.Checked = true;
-            this._chkShowPie.CheckState = System.Windows.Forms.CheckState.Checked;
-            this._chkShowPie.DisplayStatus = false;
-            this._chkShowPie.Location = new System.Drawing.Point(98, 94);
-            this._chkShowPie.Name = "_chkShowPie";
-            this._chkShowPie.Size = new System.Drawing.Size(50, 20);
-            this._chkShowPie.TabIndex = 0;
-            this._chkShowPie.Text = "On";
-            this._chkShowPie.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this._chkShowPie.UseSelectable = true;
-            this._chkShowPie.CheckedChanged += new System.EventHandler(this._chkFullscreen_CheckedChanged);
-            // 
-            // _sbPieOpacity
-            // 
-            this._sbPieOpacity.LargeChange = 10;
-            this._sbPieOpacity.Location = new System.Drawing.Point(266, 103);
-            this._sbPieOpacity.Maximum = 100;
-            this._sbPieOpacity.Minimum = 10;
-            this._sbPieOpacity.MouseWheelBarPartitions = 10;
-            this._sbPieOpacity.Name = "_sbPieOpacity";
-            this._sbPieOpacity.Orientation = MetroFramework.Controls.MetroScrollOrientation.Horizontal;
-            this._sbPieOpacity.ScrollbarSize = 10;
-            this._sbPieOpacity.Size = new System.Drawing.Size(92, 10);
-            this._sbPieOpacity.TabIndex = 8;
-            this._sbPieOpacity.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this._sbPieOpacity.UseBarColor = true;
-            this._sbPieOpacity.UseCustomBackColor = true;
-            this._sbPieOpacity.UseSelectable = true;
-            this._sbPieOpacity.Value = 10;
-            // 
-            // metroLabel13
-            // 
-            this.metroLabel13.AutoSize = true;
-            this.metroLabel13.Location = new System.Drawing.Point(173, 95);
-            this.metroLabel13.Name = "metroLabel13";
-            this.metroLabel13.Size = new System.Drawing.Size(76, 19);
-            this.metroLabel13.TabIndex = 7;
-            this.metroLabel13.Text = "Pie Opacity";
-            this.metroLabel13.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // _txtFavoritedFiles
-            // 
-            this._txtFavoritedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this._txtFavoritedFiles.CustomButton.Image = null;
-            this._txtFavoritedFiles.CustomButton.Location = new System.Drawing.Point(362, 1);
-            this._txtFavoritedFiles.CustomButton.Name = "";
-            this._txtFavoritedFiles.CustomButton.Size = new System.Drawing.Size(41, 41);
-            this._txtFavoritedFiles.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this._txtFavoritedFiles.CustomButton.TabIndex = 1;
-            this._txtFavoritedFiles.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this._txtFavoritedFiles.CustomButton.UseSelectable = true;
-            this._txtFavoritedFiles.CustomButton.Visible = false;
-            this._txtFavoritedFiles.Lines = new string[0];
-            this._txtFavoritedFiles.Location = new System.Drawing.Point(15, 292);
-            this._txtFavoritedFiles.MaxLength = 32767;
-            this._txtFavoritedFiles.Multiline = true;
-            this._txtFavoritedFiles.Name = "_txtFavoritedFiles";
-            this._txtFavoritedFiles.PasswordChar = '\0';
-            this._txtFavoritedFiles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this._txtFavoritedFiles.SelectedText = "";
-            this._txtFavoritedFiles.SelectionLength = 0;
-            this._txtFavoritedFiles.SelectionStart = 0;
-            this._txtFavoritedFiles.ShortcutsEnabled = true;
-            this._txtFavoritedFiles.Size = new System.Drawing.Size(404, 43);
-            this._txtFavoritedFiles.TabIndex = 14;
-            this._txtFavoritedFiles.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this._txtFavoritedFiles.UseSelectable = true;
-            this._txtFavoritedFiles.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this._txtFavoritedFiles.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            // 
-            // metroLabel14
-            // 
-            this.metroLabel14.AutoSize = true;
-            this.metroLabel14.Location = new System.Drawing.Point(14, 270);
-            this.metroLabel14.Name = "metroLabel14";
-            this.metroLabel14.Size = new System.Drawing.Size(95, 19);
-            this.metroLabel14.TabIndex = 15;
-            this.metroLabel14.Text = "Favorited Files:";
-            this.metroLabel14.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // _lblFavoritedFiles
-            // 
-            this._lblFavoritedFiles.AutoSize = true;
-            this._lblFavoritedFiles.Location = new System.Drawing.Point(110, 270);
-            this._lblFavoritedFiles.Name = "_lblFavoritedFiles";
-            this._lblFavoritedFiles.Size = new System.Drawing.Size(16, 19);
-            this._lblFavoritedFiles.TabIndex = 15;
-            this._lblFavoritedFiles.Tag = "0";
-            this._lblFavoritedFiles.Text = "0";
-            this._lblFavoritedFiles.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._btnDefaults.BackgroundImage = global::ArtPop.Properties.Resources.appbar_undo;
+            this._btnDefaults.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this._btnDefaults.Location = new System.Drawing.Point(418, 39);
+            this._btnDefaults.Name = "_btnDefaults";
+            this._btnDefaults.Size = new System.Drawing.Size(35, 30);
+            this._btnDefaults.TabIndex = 14;
+            this._btnDefaults.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnDefaults.UseSelectable = true;
+            this._btnDefaults.Click += new System.EventHandler(this._btnDefaults_Click);
             // 
             // _btnSave
             // 
             this._btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._btnSave.BackgroundImage = global::ArtPop.Properties.Resources.appbar_save;
             this._btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnSave.Location = new System.Drawing.Point(417, 37);
+            this._btnSave.Location = new System.Drawing.Point(377, 39);
             this._btnSave.Name = "_btnSave";
             this._btnSave.Size = new System.Drawing.Size(35, 30);
             this._btnSave.TabIndex = 14;
@@ -706,11 +724,23 @@
             this._btnSave.UseSelectable = true;
             this._btnSave.Click += new System.EventHandler(this._btnSave_Click);
             // 
+            // _btnSelectSearchPath
+            // 
+            this._btnSelectSearchPath.Location = new System.Drawing.Point(15, 114);
+            this._btnSelectSearchPath.Name = "_btnSelectSearchPath";
+            this._btnSelectSearchPath.Size = new System.Drawing.Size(24, 23);
+            this._btnSelectSearchPath.TabIndex = 16;
+            this._btnSelectSearchPath.Text = "...";
+            this._btnSelectSearchPath.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnSelectSearchPath.UseSelectable = true;
+            this._btnSelectSearchPath.Click += new System.EventHandler(this._btnSelectSearchPath_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 727);
+            this.Controls.Add(this._btnDefaults);
             this.Controls.Add(this._btnSave);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this._btnClearLog);
@@ -723,6 +753,7 @@
             this.Style = MetroFramework.MetroColorStyle.Silver;
             this.Text = "Settings";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -776,5 +807,7 @@
         private MetroFramework.Controls.MetroLabel _lblFavoritedFiles;
         private MetroFramework.Controls.MetroLabel metroLabel14;
         private MetroFramework.Controls.MetroTextBox _txtFavoritedFiles;
+        private MetroFramework.Controls.MetroButton _btnDefaults;
+        private MetroFramework.Controls.MetroButton _btnSelectSearchPath;
     }
 }

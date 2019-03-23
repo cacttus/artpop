@@ -98,6 +98,7 @@ namespace ArtPop
             Exercise.Duration = TimeSpan.FromMilliseconds(DtpToMillis());
             Exercise.Instruction = _txtInstruction.Text;
             Exercise.Difficulty = _cboDifficulty.SelectedText;
+            Exercise.TakeABreak = _chkTakeABreak.Checked;
         }
         public void LoadData()
         {
@@ -105,6 +106,7 @@ namespace ArtPop
             _txtInstruction.Text = Exercise.Instruction;
             _cboDifficulty.SelectedText = Exercise.Difficulty;
             _dtpTime.Value = new DateTime(2012, 01, 01) + Exercise.Duration;
+            _chkTakeABreak.Checked = Exercise.TakeABreak;
         }
 
 
@@ -136,6 +138,14 @@ namespace ArtPop
         {
             MarkChanged(true);
 
+        }
+
+        private void _chkTakeABreak_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_chkTakeABreak.Checked == true)
+            {
+                _txtInstruction.Text = "Take A Break..";
+            }
         }
     }
 }

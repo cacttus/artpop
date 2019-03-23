@@ -163,6 +163,16 @@ namespace ArtPop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap appbar_folder_ellipsis {
+            get {
+                object obj = ResourceManager.GetObject("appbar_folder_ellipsis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap appbar_food {
             get {
                 object obj = ResourceManager.GetObject("appbar_food", resourceCulture);
@@ -276,6 +286,16 @@ namespace ArtPop.Properties {
         internal static System.Drawing.Bitmap appbar_timer_stop {
             get {
                 object obj = ResourceManager.GetObject("appbar_timer_stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap appbar_undo {
+            get {
+                object obj = ResourceManager.GetObject("appbar_undo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

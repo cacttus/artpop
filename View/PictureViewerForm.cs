@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace ArtPop
         private float _fTimerPiePct = 0;
         Rectangle Last_Bounds;
         int Init_Pic_Top = 0;
+        private string _strImageLoc = "";
 
         public bool Fullscreen { get; private set; } = false;
         public string InstructionText
@@ -37,9 +39,19 @@ namespace ArtPop
         }
         public void SetImage(string imageLoc)
         {
+            _strImageLoc = imageLoc;
             try
             {
-                _pbImage.Image = new Bitmap(imageLoc);
+                if (String.IsNullOrEmpty(imageLoc) == false)
+                {
+                    _pbImage.Image = new Bitmap(imageLoc);
+                    _btnFavorite.Visible = true;
+                }
+                else
+                {
+                    _pbImage.Image = null;
+                    _btnFavorite.Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -165,7 +177,7 @@ namespace ArtPop
         }
         private void PictureViewerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Globals.MainForm.PictureViewerWidnowClosed();//Makes sure it aint' dangling
+            Globals.MainForm.PictureViewerWindowClosed();//Makes sure it aint' dangling
         }
         public void RepaintTimerPie(float pct)
         {
@@ -210,6 +222,26 @@ namespace ArtPop
             else
             {
                 _btnFavorite.Image = new Bitmap(Properties.Resources.star_hollow);
+            }
+        }
+
+        private void _btnOpenImageInFolder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Globals.OpenFolderAndSelectItem(System.IO.Path.GetDirectoryName(_strImageLoc), System.IO.Path.GetFileName(_strImageLoc));
+
+                //string p = _strImageLoc;// @"C:\tmp\this path contains spaces, and,commas\target.txt";
+                //string args = string.Format("/e, /select, \"{0}\"", p);
+
+                //ProcessStartInfo info = new ProcessStartInfo();
+                //info.FileName = "explorer";
+                //info.Arguments = args;
+                //Process.Start(info);
+            }
+            catch(Exception ex)
+            {
+                Globals.LogError("When trying to open image folder...\r\n " + ex.ToString());
             }
         }
     }

@@ -33,13 +33,13 @@
             this._lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this._cboSessions = new MetroFramework.Controls.MetroComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this._btnSettings = new MetroFramework.Controls.MetroButton();
+            this._btnSession = new MetroFramework.Controls.MetroButton();
             this._lblTimer = new System.Windows.Forms.Label();
             this._lblTitle = new MetroFramework.Controls.MetroLabel();
             this._btnStop = new MetroFramework.Controls.MetroButton();
             this._pbWalkingGuy = new System.Windows.Forms.PictureBox();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
-            this._btnSettings = new MetroFramework.Controls.MetroButton();
-            this._btnSession = new MetroFramework.Controls.MetroButton();
             this._btnPlay = new MetroFramework.Controls.MetroButton();
             this._btnShuffle = new MetroFramework.Controls.MetroButton();
             this._btnNext = new MetroFramework.Controls.MetroButton();
@@ -47,6 +47,7 @@
             this._lsvPlaylist = new MetroFramework.Controls.MetroListView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._pbWalkingGuy)).BeginInit();
@@ -77,9 +78,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this._cboSessions.FormattingEnabled = true;
             this._cboSessions.ItemHeight = 23;
-            this._cboSessions.Location = new System.Drawing.Point(61, 145);
+            this._cboSessions.Location = new System.Drawing.Point(82, 145);
             this._cboSessions.Name = "_cboSessions";
-            this._cboSessions.Size = new System.Drawing.Size(383, 29);
+            this._cboSessions.Size = new System.Drawing.Size(351, 29);
             this._cboSessions.TabIndex = 5;
             this._cboSessions.Theme = MetroFramework.MetroThemeStyle.Dark;
             this._cboSessions.UseSelectable = true;
@@ -96,56 +97,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(459, 42);
             this.panel1.TabIndex = 7;
-            // 
-            // _lblTimer
-            // 
-            this._lblTimer.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this._lblTimer.AutoSize = true;
-            this._lblTimer.Font = new System.Drawing.Font("Adobe Caslon Pro", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._lblTimer.ForeColor = System.Drawing.Color.DimGray;
-            this._lblTimer.Location = new System.Drawing.Point(136, 164);
-            this._lblTimer.Name = "_lblTimer";
-            this._lblTimer.Size = new System.Drawing.Size(271, 109);
-            this._lblTimer.TabIndex = 2;
-            this._lblTimer.Text = "0:0:0000";
-            this._lblTimer.Click += new System.EventHandler(this._lblTimer_Click);
-            // 
-            // _lblTitle
-            // 
-            this._lblTitle.AutoSize = true;
-            this._lblTitle.Location = new System.Drawing.Point(122, 29);
-            this._lblTitle.Name = "_lblTitle";
-            this._lblTitle.Size = new System.Drawing.Size(162, 19);
-            this._lblTitle.TabIndex = 6;
-            this._lblTitle.Text = "ArtPop - Art Practice Tool";
-            this._lblTitle.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // _btnStop
-            // 
-            this._btnStop.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this._btnStop.BackgroundImage = global::ArtPop.Properties.Resources.appbar_timer_stop;
-            this._btnStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnStop.Location = new System.Drawing.Point(300, 246);
-            this._btnStop.Name = "_btnStop";
-            this._btnStop.Size = new System.Drawing.Size(62, 51);
-            this._btnStop.TabIndex = 9;
-            this._btnStop.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this._btnStop.UseSelectable = true;
-            this._btnStop.Visible = false;
-            this._btnStop.Click += new System.EventHandler(this._btnStop_Click);
-            // 
-            // _pbWalkingGuy
-            // 
-            this._pbWalkingGuy.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this._pbWalkingGuy.Enabled = false;
-            this._pbWalkingGuy.Image = global::ArtPop.Properties.Resources.mario_run_gif;
-            this._pbWalkingGuy.Location = new System.Drawing.Point(5, 474);
-            this._pbWalkingGuy.Name = "_pbWalkingGuy";
-            this._pbWalkingGuy.Size = new System.Drawing.Size(23, 22);
-            this._pbWalkingGuy.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this._pbWalkingGuy.TabIndex = 8;
-            this._pbWalkingGuy.TabStop = false;
-            this._pbWalkingGuy.Visible = false;
             // 
             // metroButton1
             // 
@@ -184,12 +135,62 @@
             this._btnSession.UseSelectable = true;
             this._btnSession.Click += new System.EventHandler(this._btnSession_Click);
             // 
+            // _lblTimer
+            // 
+            this._lblTimer.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this._lblTimer.AutoSize = true;
+            this._lblTimer.Font = new System.Drawing.Font("Adobe Caslon Pro", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._lblTimer.ForeColor = System.Drawing.Color.DimGray;
+            this._lblTimer.Location = new System.Drawing.Point(136, 164);
+            this._lblTimer.Name = "_lblTimer";
+            this._lblTimer.Size = new System.Drawing.Size(271, 109);
+            this._lblTimer.TabIndex = 2;
+            this._lblTimer.Text = "0:0:0000";
+            this._lblTimer.Click += new System.EventHandler(this._lblTimer_Click);
+            // 
+            // _lblTitle
+            // 
+            this._lblTitle.AutoSize = true;
+            this._lblTitle.Location = new System.Drawing.Point(122, 29);
+            this._lblTitle.Name = "_lblTitle";
+            this._lblTitle.Size = new System.Drawing.Size(162, 19);
+            this._lblTitle.TabIndex = 6;
+            this._lblTitle.Text = "ArtPop - Art Practice Tool";
+            this._lblTitle.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // _btnStop
+            // 
+            this._btnStop.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this._btnStop.BackgroundImage = global::ArtPop.Properties.Resources.appbar_timer_stop;
+            this._btnStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this._btnStop.Location = new System.Drawing.Point(249, 246);
+            this._btnStop.Name = "_btnStop";
+            this._btnStop.Size = new System.Drawing.Size(62, 51);
+            this._btnStop.TabIndex = 9;
+            this._btnStop.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._btnStop.UseSelectable = true;
+            this._btnStop.Visible = false;
+            this._btnStop.Click += new System.EventHandler(this._btnStop_Click);
+            // 
+            // _pbWalkingGuy
+            // 
+            this._pbWalkingGuy.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this._pbWalkingGuy.Enabled = false;
+            this._pbWalkingGuy.Image = global::ArtPop.Properties.Resources.mario_run_gif;
+            this._pbWalkingGuy.Location = new System.Drawing.Point(5, 474);
+            this._pbWalkingGuy.Name = "_pbWalkingGuy";
+            this._pbWalkingGuy.Size = new System.Drawing.Size(23, 22);
+            this._pbWalkingGuy.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this._pbWalkingGuy.TabIndex = 8;
+            this._pbWalkingGuy.TabStop = false;
+            this._pbWalkingGuy.Visible = false;
+            // 
             // _btnPlay
             // 
             this._btnPlay.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this._btnPlay.BackgroundImage = global::ArtPop.Properties.Resources.appbar_timer_play;
             this._btnPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnPlay.Location = new System.Drawing.Point(136, 246);
+            this._btnPlay.Location = new System.Drawing.Point(82, 246);
             this._btnPlay.Name = "_btnPlay";
             this._btnPlay.Size = new System.Drawing.Size(141, 51);
             this._btnPlay.TabIndex = 4;
@@ -202,7 +203,7 @@
             this._btnShuffle.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this._btnShuffle.BackgroundImage = global::ArtPop.Properties.Resources.appbar_shuffle;
             this._btnShuffle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnShuffle.Location = new System.Drawing.Point(242, 51);
+            this._btnShuffle.Location = new System.Drawing.Point(379, 82);
             this._btnShuffle.Name = "_btnShuffle";
             this._btnShuffle.Size = new System.Drawing.Size(68, 35);
             this._btnShuffle.TabIndex = 4;
@@ -215,9 +216,9 @@
             this._btnNext.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this._btnNext.BackgroundImage = global::ArtPop.Properties.Resources.appbar_navigate_next;
             this._btnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnNext.Location = new System.Drawing.Point(279, 19);
+            this._btnNext.Location = new System.Drawing.Point(416, 10);
             this._btnNext.Name = "_btnNext";
-            this._btnNext.Size = new System.Drawing.Size(31, 26);
+            this._btnNext.Size = new System.Drawing.Size(31, 40);
             this._btnNext.TabIndex = 11;
             this._btnNext.Theme = MetroFramework.MetroThemeStyle.Dark;
             this._btnNext.UseSelectable = true;
@@ -228,9 +229,9 @@
             this._btnPrevious.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this._btnPrevious.BackgroundImage = global::ArtPop.Properties.Resources.appbar_navigate_previous;
             this._btnPrevious.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this._btnPrevious.Location = new System.Drawing.Point(242, 19);
+            this._btnPrevious.Location = new System.Drawing.Point(379, 10);
             this._btnPrevious.Name = "_btnPrevious";
-            this._btnPrevious.Size = new System.Drawing.Size(31, 26);
+            this._btnPrevious.Size = new System.Drawing.Size(31, 40);
             this._btnPrevious.TabIndex = 10;
             this._btnPrevious.Theme = MetroFramework.MetroThemeStyle.Dark;
             this._btnPrevious.UseSelectable = true;
@@ -243,10 +244,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this._lsvPlaylist.Font = new System.Drawing.Font("Segoe UI", 12F);
             this._lsvPlaylist.FullRowSelect = true;
-            this._lsvPlaylist.Location = new System.Drawing.Point(16, 19);
+            this._lsvPlaylist.Location = new System.Drawing.Point(6, 10);
             this._lsvPlaylist.Name = "_lsvPlaylist";
             this._lsvPlaylist.OwnerDraw = true;
-            this._lsvPlaylist.Size = new System.Drawing.Size(220, 67);
+            this._lsvPlaylist.Size = new System.Drawing.Size(367, 107);
             this._lsvPlaylist.TabIndex = 1;
             this._lsvPlaylist.Theme = MetroFramework.MetroThemeStyle.Dark;
             this._lsvPlaylist.UseCompatibleStateImageBehavior = false;
@@ -262,9 +263,9 @@
             this.groupBox1.Controls.Add(this._btnNext);
             this.groupBox1.Controls.Add(this._btnShuffle);
             this.groupBox1.ForeColor = System.Drawing.Color.Gray;
-            this.groupBox1.Location = new System.Drawing.Point(20, 346);
+            this.groupBox1.Location = new System.Drawing.Point(23, 329);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(328, 99);
+            this.groupBox1.Size = new System.Drawing.Size(453, 123);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             // 
@@ -276,11 +277,22 @@
             this.panel2.Size = new System.Drawing.Size(459, 10);
             this.panel2.TabIndex = 13;
             // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(22, 318);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(99, 19);
+            this.metroLabel1.TabIndex = 6;
+            this.metroLabel1.Text = "Current Session";
+            this.metroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(499, 497);
+            this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this._btnStop);
@@ -327,6 +339,7 @@
         private MetroFramework.Controls.MetroListView _lsvPlaylist;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel2;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
     }
 }
 

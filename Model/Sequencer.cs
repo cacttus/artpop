@@ -40,6 +40,8 @@ namespace ArtPop
 
         private Action OnShuffle = null;
         private Action OnExerciseStart = null;
+        private Action OnSessionEnd = null;
+
         private Session Session = null;
         private int CurrentExerciseIndex = 0;
 
@@ -56,10 +58,12 @@ namespace ArtPop
         }
 
         #region Public: Methods
-        public Sequencer(Session session, Action onShuffle, Action onExerciseStart)
+        public Sequencer(Session session, Action onShuffle, Action onExerciseStart, Action onSessionEnd)
         {
             OnShuffle = onShuffle;
             OnExerciseStart = onExerciseStart;
+            OnSessionEnd = onSessionEnd;
+
             Session = session;
             //If the filecache isn't built then build it.
             if (Globals.MainForm.SettingsForm.FileCache.Files.Count == 0)
@@ -114,8 +118,8 @@ namespace ArtPop
             ElapsedSinceRunMillis += Environment.TickCount - ResumeTimeMillis;
 
             PlayState = PlayState.Paused;
-
             ExerciseTimer?.Stop();
+
             UpdateDurationRemaining();
         }
         public void Stop()
@@ -231,7 +235,14 @@ namespace ArtPop
             if (CurrentExerciseIndex >= Session.Exercises.Count)
             {
                 //We completed the session.
-                System.Windows.Forms.MessageBox.Show("Session Complete. Press ESC or F11 to exit picture viewer.", "Session Complete", MessageBoxButtons.OK);
+                //MessageBox.Show("Session Complete. Press ESC or F11 to exit picture viewer.", "Session Complete", MessageBoxButtons.OK);
+                string inf = "Session Complete. Press ESC or F11 to exit picture viewer.";
+
+                Globals.MainForm.PictureViewerForm.ShowLocalMessage(inf);
+
+                Stop();
+
+                OnSessionEnd?.Invoke();
             }
             else
             {
@@ -251,6 +262,7 @@ namespace ArtPop
                 EndTimeMillis = ResumeTimeMillis + ExerciseTimer.Interval;
                 UpdateDurationRemaining();
 
+                PlayState = PlayState.Playing;
                 ExerciseTimer.Start();
             }
 
