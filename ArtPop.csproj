@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +27,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -61,73 +61,86 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Sequencer.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="View\ExerciseEditorForm.cs">
+    <Compile Include="src\MonoEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\ExerciseEditorForm.Designer.cs">
+    <Compile Include="src\MonoEditForm.Designer.cs">
+      <DependentUpon>MonoEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\OptionsFile.cs" />
+    <Compile Include="src\Sequencer.cs" />
+    <Compile Include="src\ThemeApplier.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="forms\ExerciseEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\ExerciseEditorForm.Designer.cs">
       <DependentUpon>ExerciseEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\FileCache.cs" />
-    <Compile Include="Model\Globals.cs" />
-    <Compile Include="View\ExerciseTimer.cs">
+    <Compile Include="src\FileCache.cs" />
+    <Compile Include="src\Globals.cs" />
+    <Compile Include="forms\ExerciseTimer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\ExerciseTimer.Designer.cs">
+    <Compile Include="forms\ExerciseTimer.Designer.cs">
       <DependentUpon>ExerciseTimer.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\HelpForm.cs">
+    <Compile Include="forms\HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\HelpForm.Designer.cs">
+    <Compile Include="forms\HelpForm.Designer.cs">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\MainForm.cs">
+    <Compile Include="src\JsonFile.cs" />
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\MainForm.Designer.cs">
+    <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\ArtPopNumericUpDown.cs">
+    <Compile Include="forms\ArtPopNumericUpDown.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\ArtPopNumericUpDown.Designer.cs">
+    <Compile Include="forms\ArtPopNumericUpDown.Designer.cs">
       <DependentUpon>ArtPopNumericUpDown.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\PictureViewerForm.cs">
+    <Compile Include="src\MonoEditFile.cs" />
+    <Compile Include="src\Phrases.cs" />
+    <Compile Include="forms\PictureViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\PictureViewerForm.Designer.cs">
+    <Compile Include="forms\PictureViewerForm.Designer.cs">
       <DependentUpon>PictureViewerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\SessionEditorForm.cs">
+    <Compile Include="forms\SessionEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\SessionEditorForm.Designer.cs">
+    <Compile Include="forms\SessionEditorForm.Designer.cs">
       <DependentUpon>SessionEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\SettingsForm.cs">
+    <Compile Include="forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\SettingsForm.Designer.cs">
+    <Compile Include="forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\ExerciseEditorForm.resx">
+    <Compile Include="src\Translator.cs" />
+    <EmbeddedResource Include="forms\ExerciseEditorForm.resx">
       <DependentUpon>ExerciseEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\ExerciseTimer.resx">
+    <EmbeddedResource Include="forms\ExerciseTimer.resx">
       <DependentUpon>ExerciseTimer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\HelpForm.resx">
+    <EmbeddedResource Include="forms\HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\MainForm.resx">
+    <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\ArtPopNumericUpDown.resx">
+    <EmbeddedResource Include="forms\ArtPopNumericUpDown.resx">
       <DependentUpon>ArtPopNumericUpDown.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -140,13 +153,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="View\PictureViewerForm.resx">
+    <EmbeddedResource Include="forms\PictureViewerForm.resx">
       <DependentUpon>PictureViewerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\SessionEditorForm.resx">
+    <EmbeddedResource Include="forms\SessionEditorForm.resx">
       <DependentUpon>SessionEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\SettingsForm.resx">
+    <EmbeddedResource Include="forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -164,7 +177,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ArtPopLogo256.ico" />
+    <Content Include="ArtPopLogo256.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ArtPopLogo512.ico" />
     <Content Include="Changelog.txt" />
     <None Include="rsc\appbar.undo.png" />
@@ -192,15 +207,9 @@
     <None Include="rsc\mario_run_gif.gif" />
     <None Include="rsc\appbar.timer.play.png" />
     <None Include="rsc\appbar.timer.pause.png" />
-    <EmbeddedResource Include="rsc\appbar.cog.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="rsc\appbar.food.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="rsc\appbar.layer.thick.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <None Include="rsc\appbar.cog.png" />
+    <None Include="rsc\appbar.food.png" />
+    <None Include="rsc\appbar.layer.thick.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
