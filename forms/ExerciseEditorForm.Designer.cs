@@ -41,10 +41,10 @@
             this._cboDifficulty = new MetroFramework.Controls.MetroComboBox();
             this._chkTakeABreak = new MetroFramework.Controls.MetroCheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
-            this._lblRepeat = new MetroFramework.Controls.MetroLabel();
-            this._nudRepeat = new System.Windows.Forms.NumericUpDown();
             this._lblRepeat2 = new MetroFramework.Controls.MetroLabel();
+            this._nudRepeat = new System.Windows.Forms.NumericUpDown();
+            this._lblRepeat = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._nudRepeat)).BeginInit();
             this.SuspendLayout();
@@ -260,25 +260,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // metroLabel5
+            // _lblRepeat2
             // 
-            this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(27, 320);
-            this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(55, 19);
-            this.metroLabel5.TabIndex = 9;
-            this.metroLabel5.Text = "Options";
-            this.metroLabel5.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // _lblRepeat
-            // 
-            this._lblRepeat.AutoSize = true;
-            this._lblRepeat.Location = new System.Drawing.Point(6, 47);
-            this._lblRepeat.Name = "_lblRepeat";
-            this._lblRepeat.Size = new System.Drawing.Size(50, 19);
-            this._lblRepeat.TabIndex = 14;
-            this._lblRepeat.Text = "Repeat";
-            this._lblRepeat.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._lblRepeat2.AutoSize = true;
+            this._lblRepeat2.Location = new System.Drawing.Point(124, 47);
+            this._lblRepeat2.Name = "_lblRepeat2";
+            this._lblRepeat2.Size = new System.Drawing.Size(43, 19);
+            this._lblRepeat2.TabIndex = 16;
+            this._lblRepeat2.Text = "times.";
+            this._lblRepeat2.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // _nudRepeat
             // 
@@ -301,16 +291,27 @@
             0,
             0,
             0});
+            this._nudRepeat.ValueChanged += new System.EventHandler(this._nudRepeat_ValueChanged);
             // 
-            // _lblRepeat2
+            // _lblRepeat
             // 
-            this._lblRepeat2.AutoSize = true;
-            this._lblRepeat2.Location = new System.Drawing.Point(124, 47);
-            this._lblRepeat2.Name = "_lblRepeat2";
-            this._lblRepeat2.Size = new System.Drawing.Size(43, 19);
-            this._lblRepeat2.TabIndex = 16;
-            this._lblRepeat2.Text = "times.";
-            this._lblRepeat2.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this._lblRepeat.AutoSize = true;
+            this._lblRepeat.Location = new System.Drawing.Point(6, 47);
+            this._lblRepeat.Name = "_lblRepeat";
+            this._lblRepeat.Size = new System.Drawing.Size(50, 19);
+            this._lblRepeat.TabIndex = 14;
+            this._lblRepeat.Text = "Repeat";
+            this._lblRepeat.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel5
+            // 
+            this.metroLabel5.AutoSize = true;
+            this.metroLabel5.Location = new System.Drawing.Point(27, 320);
+            this.metroLabel5.Name = "metroLabel5";
+            this.metroLabel5.Size = new System.Drawing.Size(55, 19);
+            this.metroLabel5.TabIndex = 9;
+            this.metroLabel5.Text = "Options";
+            this.metroLabel5.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // ExerciseEditorForm
             // 

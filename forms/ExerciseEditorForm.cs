@@ -61,7 +61,6 @@ namespace ArtPop
         {
             SaveData();
             MarkChanged(false);
-            DialogResult = DialogResult.OK;
         }
         private void _btnCancel_Click(object sender, EventArgs e)
         {
@@ -110,7 +109,14 @@ namespace ArtPop
             _cboDifficulty.SelectedText = Exercise.Difficulty;
             _dtpTime.Value = new DateTime(2012, 01, 01) + Exercise.Duration;
             _chkTakeABreak.Checked = Exercise.TakeABreak;
-            _nudRepeat.Value = (decimal)Exercise.RepeatCount;
+            try
+            {
+                _nudRepeat.Value = (decimal)Exercise.RepeatCount;
+            }
+            catch
+            {
+                _nudRepeat.Value = 1;
+            }
         }
 
         private void metroComboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -148,11 +154,17 @@ namespace ArtPop
             {
                 _txtInstruction.Text = "Take A Break..";
             }
+            MarkChanged(true);
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void _nudRepeat_ValueChanged(object sender, EventArgs e)
+        {
+            MarkChanged(true);
         }
     }
 }

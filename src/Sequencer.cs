@@ -45,10 +45,11 @@ namespace ArtPop
 
         private Session Session = null;
         private int CurrentExerciseIndex = 0;
-        private int CurrentExerciseRepeatCount = 1;
+        private int _currentExerciseRepeatCount = 1;
+        public int CurrentExerciseRepeatCount { get { return _currentExerciseRepeatCount; } private set { _currentExerciseRepeatCount = value; } }
 
         private Random Random = new Random();
-
+            
         private int ElapsedSinceRunMillis = 0;//Time elapsed since we last clicked "play"
         public float ElapsedMillis
         {
@@ -119,13 +120,13 @@ namespace ArtPop
                 CurrentExerciseRepeatCount = CurrentExercise.RepeatCount;
                 OnExerciseStart?.Invoke();
             }
+            CurrentExerciseIndex++;//Post-Increment
         }
         public void Start()
         {
-            //This appears to be invalid.
-            throw new NotImplementedException();
-            //ResetState();
-            //RunExercise(0);
+            ResetState();
+            SelectExercise();
+            RunExercise();
         }
         private void UpdateDurationRemaining()
         {

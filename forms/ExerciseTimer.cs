@@ -76,7 +76,13 @@ namespace ArtPop
                         //    format = "ffff";
                         //}
 
+
                         _lblClocko.Text = ts.ToString(format);
+
+                        if(Globals.MainForm.Sequencer.CurrentExerciseRepeatCount > 1)
+                        {
+                            _lblClocko.Text += " x " + Globals.MainForm.Sequencer.CurrentExerciseRepeatCount;
+                        }
 
                         _lblClocko.ForeColor = Color.FromArgb(100, 100, 100);
 

@@ -115,7 +115,6 @@ namespace ArtPop
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -132,7 +131,6 @@ namespace ArtPop
                 SettingsForm.ShowDialog(this);
                 SettingsForm.ReloadingSettings = false;
             }
-
         }
         private void _btnExit_Click(object sender, EventArgs e)
         {
@@ -165,7 +163,6 @@ namespace ArtPop
         private void _btnStop_Click(object sender, EventArgs e)
         {
             StopTimerAction();
-
         }
 
         #endregion
@@ -316,8 +313,6 @@ namespace ArtPop
                                 PictureViewerForm.SetImage(null);
                                 PictureViewerForm.InstructionText = "No more exercises.";
                             }
-
-
                         },
                         () =>
                         {
@@ -378,7 +373,6 @@ namespace ArtPop
                 PictureViewerForm.Close();
                 PictureViewerForm = null;
             }
-
         }
         private void ResumeTimer()
         {
@@ -415,39 +409,28 @@ namespace ArtPop
             {
                 Globals.MainForm.Sequencer.ToggleFavoriteCurrentCard(); PictureViewerForm?.UpdateFavImage();
             });
-
         }
-
-
         #endregion
 
         private void _lblTimer_Click(object sender, EventArgs e)
         {
-
         }
-
         private void metroButton1_Click(object sender, EventArgs e)
         {
             HelpForm f = new HelpForm();
             f.ShowDialog();
         }
-
         private void _btnPrevious_Click(object sender, EventArgs e)
         {
-
         }
-
         private void _btnNext_Click(object sender, EventArgs e)
         {
-
         }
-
         private void MainForm_Activated(object sender, EventArgs e)
         {
             // BringToFront();
             TogglePlaylist();
         }
-
         private void _lblPlaylist_Click(object sender, EventArgs e)
         {
             TogglePlaylist();
