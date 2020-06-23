@@ -52,6 +52,7 @@ namespace ArtPop
    {
       public static void ToggleBackground(MetroButton objButton, bool bEnable)
       {
+         //Greys out button images if they are disabled.
          float value = 1.0f;
          if (!bEnable)
          {
@@ -452,37 +453,47 @@ namespace ArtPop
 
       public static void OpenFolderAndSelectItem(string folderPath, string file)
       {
-         //https://stackoverflow.com/questions/334630/opening-a-folder-in-explorer-and-selecting-a-file
-         IntPtr nativeFolder;
-         uint psfgaoOut;
-         SHParseDisplayName(folderPath, IntPtr.Zero, out nativeFolder, 0, out psfgaoOut);
-
-         if (nativeFolder == IntPtr.Zero)
+         try
          {
-            // Log error, can't find folder
-            return;
+
+            string fullpath = Path.GetFullPath(folderPath);
+
+            //https://stackoverflow.com/questions/334630/opening-a-folder-in-explorer-and-selecting-a-file
+            IntPtr nativeFolder;
+            uint psfgaoOut;
+            SHParseDisplayName(fullpath, IntPtr.Zero, out nativeFolder, 0, out psfgaoOut);
+
+            if (nativeFolder == IntPtr.Zero)
+            {
+               // Log error, can't find folder
+               return;
+            }
+
+            IntPtr nativeFile;
+            SHParseDisplayName(Path.Combine(fullpath, file), IntPtr.Zero, out nativeFile, 0, out psfgaoOut);
+
+            IntPtr[] fileArray;
+            if (nativeFile == IntPtr.Zero)
+            {
+               // Open the folder without the file selected if we can't find the file
+               fileArray = new IntPtr[0];
+            }
+            else
+            {
+               fileArray = new IntPtr[] { nativeFile };
+            }
+
+            SHOpenFolderAndSelectItems(nativeFolder, (uint)fileArray.Length, fileArray, 0);
+
+            Marshal.FreeCoTaskMem(nativeFolder);
+            if (nativeFile != IntPtr.Zero)
+            {
+               Marshal.FreeCoTaskMem(nativeFile);
+            }
          }
-
-         IntPtr nativeFile;
-         SHParseDisplayName(Path.Combine(folderPath, file), IntPtr.Zero, out nativeFile, 0, out psfgaoOut);
-
-         IntPtr[] fileArray;
-         if (nativeFile == IntPtr.Zero)
+         catch (Exception ex)
          {
-            // Open the folder without the file selected if we can't find the file
-            fileArray = new IntPtr[0];
-         }
-         else
-         {
-            fileArray = new IntPtr[] { nativeFile };
-         }
-
-         SHOpenFolderAndSelectItems(nativeFolder, (uint)fileArray.Length, fileArray, 0);
-
-         Marshal.FreeCoTaskMem(nativeFolder);
-         if (nativeFile != IntPtr.Zero)
-         {
-            Marshal.FreeCoTaskMem(nativeFile);
+            Globals.LogError("Failed to open folder " + folderPath + " -> " + ex.ToString());
          }
       }
 

@@ -182,7 +182,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ArtPopLogo512.ico" />
-    <Content Include="Changelog.txt" />
+    <None Include="Changelog.md" />
     <None Include="rsc\appbar.undo.png" />
     <None Include="rsc\star_solid.png" />
     <None Include="rsc\star_hollow.png" />

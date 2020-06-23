@@ -1,9 +1,0 @@
-﻿The numeric updown control isn't updating so when we search its using old values
-figure out why
-
-fix the run & show pic
-fix the clock
-that's all folks
-add initial search if no FileCache is created manually
-d
-2/23/19
