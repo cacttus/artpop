@@ -95,8 +95,8 @@ namespace ArtPop
             }
             else
             {
-                  //*Hide the Pie
-                  PictureViewerForm.RepaintTimerPie(0);
+               //*Hide the Pie
+               PictureViewerForm.RepaintTimerPie(0);
             }
 
          };
@@ -115,6 +115,8 @@ namespace ArtPop
       }
       private void MainForm_Load(object sender, EventArgs e)
       {
+         TogglePlaylist();
+
       }
       private void exitToolStripMenuItem_Click(object sender, EventArgs e)
       {
@@ -276,9 +278,9 @@ namespace ArtPop
                    GetSelectedSession(),
                    () =>
                    {
-                           //onShuffle
-                           //UpdatePlaylist
-                           _lsvPlaylist.Items.Clear();
+                      //onShuffle
+                      //UpdatePlaylist
+                      _lsvPlaylist.Items.Clear();
                       foreach (string card in Sequencer.Cards)
                       {
                          _lsvPlaylist.Items.Add(card);
@@ -286,16 +288,16 @@ namespace ArtPop
                    },
                    () =>
                    {
-                           //OnExerciseStart 
+                      //OnExerciseStart 
 
-                           //CycleImage
-                           if (PictureViewerForm == null)
+                      //CycleImage
+                      if (PictureViewerForm == null)
                       {
                          PictureViewerForm = new PictureViewerForm();
                       }
 
-                           //If we are a pause exercise then set no image and TakeABreak it
-                           if (Sequencer.CurrentExercise != null)
+                      //If we are a pause exercise then set no image and TakeABreak it
+                      if (Sequencer.CurrentExercise != null)
                       {
                          if (Sequencer.CurrentExercise.TakeABreak)
                          {
@@ -316,10 +318,10 @@ namespace ArtPop
                    },
                    () =>
                    {
-                           //OnSessionEnd
-                           StopTimerAction();
-                           //Hide the PI
-                           PictureViewerForm?.RepaintTimerPie(0);
+                      //OnSessionEnd
+                      StopTimerAction();
+                      //Hide the PI
+                      PictureViewerForm?.RepaintTimerPie(0);
 
                    }
                );
@@ -433,7 +435,6 @@ namespace ArtPop
       private void MainForm_Activated(object sender, EventArgs e)
       {
          // BringToFront();
-         TogglePlaylist();
       }
       private void _lblPlaylist_Click(object sender, EventArgs e)
       {

@@ -62,7 +62,7 @@ namespace ArtPop
       }
 
       public static string SettingsFileVersion = "0.0.3";
-      public static string ProgramVersion = "0.0.3";
+      public static string ProgramVersion = "0.0.4";
       public static string ProgramName = "ARTPOP";
       public static string ProgramDescriptionShort = "Practice tool";
       public static int Id_Gen = 0;
