@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageMaker.cs" />
     <Compile Include="src\MonoEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
