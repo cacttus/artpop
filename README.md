@@ -2,6 +2,8 @@
 # Artpop
 A Practice Tool For Artists
 
+_Note: this has been deprecated with https://github.com/cacttus/sketchy_
+
 # Platforms
 * Windows
 
